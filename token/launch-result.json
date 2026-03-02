@@ -1,0 +1,12 @@
+{
+  "token": "OpenSeeker",
+  "symbol": "SEEK",
+  "mint": "H8oBZ3Fa6WJjpxeEwCr4gRP3SF96B1s3b49knipohRqt",
+  "createSignature": "2UeTtLVs2meABVDtNFToHAhAdR3QjiJ7HnYAgwtHBiiKa7vkDU7HpSUdZiHbj37cHKpHjaBLnjkAwBzVo6ayruCr",
+  "metadataUri": "https://ipfs.io/ipfs/QmRDeprbhzsiF5RDxF3xcH5GaL7KpPwgChGTMe3Ctn6pRA",
+  "wallet": "FRKVegACa7P55Ufu8YgVvV4Xi4ZJ2ufA3BrGVQDYv3ZC",
+  "buyAmount": "1 SOL",
+  "launchedAt": "2026-03-02T12:35:20.066Z",
+  "pumpFunUrl": "https://pump.fun/coin/H8oBZ3Fa6WJjpxeEwCr4gRP3SF96B1s3b49knipohRqt",
+  "solscanUrl": "https://solscan.io/tx/2UeTtLVs2meABVDtNFToHAhAdR3QjiJ7HnYAgwtHBiiKa7vkDU7HpSUdZiHbj37cHKpHjaBLnjkAwBzVo6ayruCr"
+}
