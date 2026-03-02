@@ -8,7 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // === CONFIG ===
 const RPC_URL = "https://api.mainnet-beta.solana.com";
 const FLEET_DIR = "/Volumes/Virtual Server/configs/dotfiles/.solana-keys/fleet";
-const CYCLE_AMOUNT_SOL = parseFloat(process.env.AMOUNT || "0.02"); // SOL per cycle
+const CYCLE_AMOUNT_SOL = parseFloat(process.env.AMOUNT || "0.05"); // SOL per cycle
 const MIN_INTERVAL_S = parseInt(process.env.MIN_INTERVAL || "20");
 const MAX_INTERVAL_S = parseInt(process.env.MAX_INTERVAL || "60");
 const SLIPPAGE = parseInt(process.env.SLIPPAGE || "25");
@@ -100,7 +100,7 @@ async function runCycle(fleet) {
   const action = Math.random();
 
   try {
-    if (action < 0.35) {
+    if (action < 0.15) {
       // Sell from token's wallet, then rebuy from random wallet
       console.log(`[${now}] Cycle #${cycleCount} $${token.symbol}: wallet-${tokenWallet.id} SELL → wallet-${buyWallet.id} BUY`);
       const sellSig = await sellFromWallet(tokenWallet, token.mint);
@@ -116,8 +116,8 @@ async function runCycle(fleet) {
         console.log(`  Bought ${CYCLE_AMOUNT_SOL} SOL: ${buySig.slice(0, 20)}...`);
         totalVolume += CYCLE_AMOUNT_SOL;
       }
-    } else if (action < 0.55) {
-      // Just buy (accumulate across wallets)
+    } else if (action < 0.85) {
+      // Just buy (accumulate across wallets — buy bias to push mcap)
       console.log(`[${now}] Cycle #${cycleCount} wallet-${buyWallet.id} on $${token.symbol}: BUY`);
       const bal = await conn.getBalance(buyWallet.keypair.publicKey);
       if (bal / LAMPORTS_PER_SOL < CYCLE_AMOUNT_SOL + 0.005) {
@@ -129,7 +129,7 @@ async function runCycle(fleet) {
         console.log(`  Bought: ${sig.slice(0, 20)}...`);
         totalVolume += CYCLE_AMOUNT_SOL;
       }
-    } else if (action < 0.75) {
+    } else if (action < 0.92) {
       // Just sell from token's wallet
       console.log(`[${now}] Cycle #${cycleCount} wallet-${tokenWallet.id} on $${token.symbol}: SELL`);
       const sig = await sellFromWallet(tokenWallet, token.mint);

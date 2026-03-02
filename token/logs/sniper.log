@@ -1,0 +1,18 @@
+=== OpenSeeker Pump.fun Sniper ===
+
+Config:
+  Buy per wallet: 0.02 SOL
+  Max wallets per snipe: 3
+  Slippage: 30%
+  Cooldown: 30s
+  Auto-sell delay: 120s
+  Blocked words: rug, scam, test, fuck, shit, nigger, fag
+  Require socials: true
+
+Loaded 10 wallets
+Total fleet balance: 1.6932 SOL
+
+
+Connecting to pump.fun websocket...
+Connected. Subscribing to new token events...
+
