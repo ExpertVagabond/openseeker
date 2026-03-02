@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fleet DEX — OpenSeeker</title>
+<meta name="description" content="Trade all OpenSeeker agent tokens in one place. Live prices, market caps, and instant swaps powered by Jupiter.">
+<meta name="theme-color" content="#dc2626">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<meta property="og:title" content="Fleet DEX — OpenSeeker">
+<meta property="og:description" content="Trade all OpenSeeker agent tokens. Live prices and instant swaps.">
+<meta property="og:image" content="assets/logo.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--bg-card:#111113;--bg-card-hover:#1a1a1d;
+  --border:#222;--border-hover:#333;
+  --text:#e4e4e7;--text-muted:#71717a;--text-dim:#52525b;
+  --red:#dc2626;--red-glow:rgba(220,38,38,.15);--red-dim:#991b1b;
+  --green:#22c55e;--green-dim:#166534;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono','Fira Code',monospace;
+  --max:1120px;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--red);text-decoration:none;transition:color .2s}
+a:hover{color:#ef4444}
+::selection{background:var(--red);color:#fff}
+img{max-width:100%;height:auto;display:block}
+
+.container{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(10,10,10,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:16px 0}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo-group{display:flex;align-items:center;gap:12px}
+.logo-group img{width:36px;height:36px;border-radius:8px}
+.logo-text{font-size:1.25rem;font-weight:700;color:#fff;letter-spacing:-.02em}
+.logo-text span{color:var(--red)}
+.logo-sub{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-top:-2px}
+nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.nav-link{font-size:.8rem;color:var(--text-muted);padding:6px 12px;border-radius:6px;transition:all .2s}
+.nav-link:hover{color:#fff;background:var(--bg-card)}
+.nav-link.active{color:#fff;background:var(--bg-card)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;font-size:.875rem;font-weight:600;transition:all .2s;border:none;cursor:pointer;font-family:var(--font)}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:hover{background:#ef4444;box-shadow:0 0 24px var(--red-glow);color:#fff}
+.btn-secondary{background:var(--bg-card);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--border-hover);background:var(--bg-card-hover);color:#fff}
+
+/* DEX Hero */
+.dex-hero{padding:48px 0 32px;text-align:center}
+.dex-hero h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;color:#fff;letter-spacing:-.03em;margin-bottom:8px}
+.dex-hero h1 span{color:var(--red)}
+.dex-hero p{color:var(--text-muted);font-size:.95rem;margin-bottom:24px}
+
+/* Stats bar */
+.stats-bar{display:flex;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;border:1px solid var(--border);max-width:600px;margin:0 auto}
+.stats-bar .stat{background:var(--bg-card);padding:16px;text-align:center;flex:1}
+.stats-bar .stat-val{font-size:1rem;font-weight:700;color:#fff;font-family:var(--mono)}
+.stats-bar .stat-label{font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+
+/* Main layout */
+.dex-layout{display:grid;grid-template-columns:1fr 380px;gap:24px;padding:32px 0 60px;align-items:start}
+
+/* Token list */
+.token-panel{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.token-panel-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.token-panel-header h2{font-size:.9rem;font-weight:600;color:#fff}
+.token-count{font-size:.75rem;color:var(--text-muted);font-family:var(--mono)}
+
+.token-row{display:grid;grid-template-columns:44px 1fr auto auto auto;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.token-row:hover{background:var(--bg-card-hover)}
+.token-row:last-child{border-bottom:none}
+.token-row.selected{background:var(--red-glow);border-left:3px solid var(--red)}
+
+.token-img{width:40px;height:40px;border-radius:10px;object-fit:cover;border:1px solid var(--border)}
+.token-info{min-width:0}
+.token-name{font-size:.85rem;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.token-symbol{font-size:.7rem;color:var(--red);font-family:var(--mono);font-weight:500}
+
+.token-price{font-size:.85rem;font-weight:600;color:#fff;font-family:var(--mono);text-align:right;white-space:nowrap}
+.token-mcap{font-size:.75rem;color:var(--text-muted);font-family:var(--mono);text-align:right;white-space:nowrap}
+
+.swap-btn{padding:6px 14px;border-radius:6px;font-size:.75rem;font-weight:600;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:var(--font);transition:all .2s;white-space:nowrap}
+.swap-btn:hover{background:#ef4444;box-shadow:0 0 16px var(--red-glow)}
+
+/* Swap panel */
+.swap-panel{position:sticky;top:80px}
+.swap-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.swap-card-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.swap-card-header h2{font-size:.9rem;font-weight:600;color:#fff}
+.swap-card-header .selected-token{font-size:.75rem;color:var(--red);font-family:var(--mono)}
+#jupiter-swap{min-height:400px;display:flex;align-items:center;justify-content:center}
+#jupiter-swap .loading-msg{color:var(--text-muted);font-size:.85rem;text-align:center;padding:40px 20px}
+#jupiter-swap .loading-msg a{color:var(--red)}
+
+/* Fallback links */
+.fallback-links{padding:20px;display:none}
+.fallback-links.show{display:block}
+.fallback-link{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;border:1px solid var(--border);margin-bottom:8px;font-size:.8rem;color:var(--text-muted);transition:all .2s}
+.fallback-link:hover{border-color:var(--red);color:#fff}
+.fallback-link img{width:24px;height:24px;border-radius:6px}
+
+/* External links under swap */
+.swap-links{padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap}
+.swap-ext{font-size:.7rem;color:var(--text-muted);padding:4px 10px;border-radius:5px;border:1px solid var(--border);transition:all .15s}
+.swap-ext:hover{color:#fff;border-color:var(--border-hover)}
+
+/* Updated timestamp */
+.updated{text-align:center;font-size:.7rem;color:var(--text-dim);padding:12px 0}
+
+/* Footer */
+footer{margin-top:auto;border-top:1px solid var(--border);padding:40px 0;text-align:center}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-brand{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text-muted)}
+.footer-brand img{width:24px;height:24px;border-radius:6px}
+.footer-links{display:flex;gap:16px}
+.footer-links a{font-size:.8rem;color:var(--text-muted)}
+.footer-links a:hover{color:#fff}
+
+/* Mobile */
+@media(max-width:860px){
+  .dex-layout{grid-template-columns:1fr;gap:16px}
+  .swap-panel{position:static}
+  .token-row{grid-template-columns:36px 1fr auto auto;gap:8px;padding:12px 16px}
+  .token-mcap{display:none}
+  .stats-bar{flex-direction:column}
+  nav{display:none}
+  .footer-inner{flex-direction:column}
+}
+@media(max-width:480px){
+  .token-row{grid-template-columns:36px 1fr auto}
+  .token-price{display:none}
+  .token-img{width:32px;height:32px}
+}
+
+/* Price flash */
+@keyframes flash-green{0%{color:var(--green)}100%{color:#fff}}
+@keyframes flash-red{0%{color:var(--red)}100%{color:#fff}}
+.flash-up{animation:flash-green .6s ease-out}
+.flash-down{animation:flash-red .6s ease-out}
+</style>
+</head>
+<body>
+
+<header>
+<div class="container header-inner">
+  <a href="index.html" style="text-decoration:none">
+    <div class="logo-group">
+      <img src="assets/logo.png" alt="OpenSeeker" width="36" height="36">
+      <div>
+        <div class="logo-text">Open<span>Seeker</span></div>
+        <div class="logo-sub">Fleet DEX</div>
+      </div>
+    </div>
+  </a>
+  <nav>
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link active" href="dex.html">DEX</a>
+    <a class="nav-link" href="index.html#fleet">Agent Fleet</a>
+    <a class="btn btn-primary" href="https://github.com/ExpertVagabond/openseeker" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</div>
+</header>
+
+<main>
+<section class="dex-hero">
+<div class="container">
+  <h1>Fleet <span>DEX</span></h1>
+  <p>Trade all OpenSeeker agent tokens in one place. Powered by Jupiter.</p>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-val" id="fleet-mcap">--</div><div class="stat-label">Fleet Mcap</div></div>
+    <div class="stat"><div class="stat-val" id="token-count">12</div><div class="stat-label">Tokens</div></div>
+    <div class="stat"><div class="stat-val" id="sol-price">--</div><div class="stat-label">SOL/USD</div></div>
+  </div>
+</div>
+</section>
+
+<div class="container">
+<div class="dex-layout">
+
+  <!-- Token List -->
+  <div class="token-panel">
+    <div class="token-panel-header">
+      <h2>Fleet Tokens</h2>
+      <span class="token-count">12 tokens</span>
+    </div>
+    <div id="token-list"></div>
+    <div class="updated" id="last-updated">Loading prices...</div>
+  </div>
+
+  <!-- Swap Panel -->
+  <div class="swap-panel">
+    <div class="swap-card">
+      <div class="swap-card-header">
+        <h2>Swap</h2>
+        <span class="selected-token" id="selected-label">$SEEKBOT</span>
+      </div>
+      <div id="jupiter-swap">
+        <div class="loading-msg">
+          Loading Jupiter...<br><br>
+          <small>If this doesn't load, trade directly on <a href="https://jup.ag" target="_blank" rel="noopener">jup.ag</a> or <a href="https://pump.fun" target="_blank" rel="noopener">pump.fun</a></small>
+        </div>
+      </div>
+      <div class="fallback-links" id="fallback-links"></div>
+      <div class="swap-links" id="swap-links"></div>
+    </div>
+  </div>
+
+</div>
+</div>
+</main>
+
+<footer>
+<div class="container footer-inner">
+  <div class="footer-brand">
+    <img src="assets/logo.png" alt="OpenSeeker" width="24" height="24">
+    <span>OpenSeeker &mdash; Built by <a href="https://purplesquirrelmedia.io" target="_blank" rel="noopener">Purple Squirrel Media</a></span>
+  </div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="https://github.com/ExpertVagabond/openseeker" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://x.com/squirrel_eth" target="_blank" rel="noopener">X / Twitter</a>
+  </div>
+</div>
+</footer>
+
+<script src="https://plugin.jup.ag/plugin-v1.js" data-preload defer></script>
+<script>
+// === TOKEN REGISTRY ===
+const SOL_MINT = 'So11111111111111111111111111111111111111112';
+const FLEET_TOKENS = [
+  { symbol: 'SEEKBOT', name: 'SeekBot', mint: '9T95V7S1y7L8LLJEFqn7UdcmjY71Q6VMZita1t8vJbJ1', image: 'assets/seekbot.png', desc: 'Autonomous trading bot', page: 'seekbot.html' },
+  { symbol: 'AVAULT', name: 'AgentVault', mint: 'APXYEg1wQheuz4C3dvczKGzYmVMgP5qvjbzmfqLrtRJ2', image: 'assets/agentvault.png', desc: 'Secure AI vault', page: 'avault.html' },
+  { symbol: 'NSWAP', name: 'NeuralSwap', mint: '7PV9EpZXivde9XckQoF1jYGAPSmYUfwJ1iBRqGwKKCJi', image: 'assets/neuralswap.png', desc: 'Neural swap optimizer', page: 'nswap.html' },
+  { symbol: 'PCHAIN', name: 'PhoneChain', mint: 'D8u7g47FCPtMQbi9q1jds77vbvwcdvM7pub24NjbNu2v', image: 'assets/phonechain.png', desc: 'Mobile blockchain node', page: 'pchain.html' },
+  { symbol: 'SEEDG', name: 'SeedGuard', mint: '8k51Q6gvA8nUoTpfpBfPkcvH613QBroSbqrjd3ixqHDR', image: 'assets/seedguard.png', desc: 'Seed Vault security', page: 'seedg.html' },
+  { symbol: 'SKNET', name: 'SkillNet', mint: 'FYVK2YQrXT47sUqu2ynebPz1tNXyugw5DvqyHXB8haau', image: 'assets/skillnet.png', desc: 'AI skill marketplace', page: 'sknet.html' },
+  { symbol: 'MDAO', name: 'MobileDAO', mint: 'GFgbDMJmMmrKSNkmbgHAVEqUNGCMMaeheGwyDF1tVwhU', image: 'assets/mobiledao.png', desc: 'Mobile governance', page: 'mdao.html' },
+  { symbol: 'TRELAY', name: 'TeleRelay', mint: 'AemCtvSpewGhcyFgoEY6RVCzVPibuLNnJtGrVW9Sq3XW', image: 'assets/telerelay.png', desc: 'Telegram relay agent', page: 'trelay.html' },
+  { symbol: 'CSIGN', name: 'ColdSign', mint: 'kynRpxt3ASUkaXSBoqHd9v6dbtm4gMbEqmsDD6Dfunx', image: 'assets/coldsign.png', desc: 'Cold signing protocol', page: 'csign.html' },
+  { symbol: 'SWARM', name: 'SwarmNode', mint: 'F3kXwe6eF8hSiuqWtNzAiv668QWAHVem7FvZK3jWahdN', image: 'assets/swarmnode.png', desc: 'Distributed AI swarm', page: 'swarm.html' },
+  { symbol: 'PAW', name: 'OpenPaw', mint: 'DbukKVm7tdNaeaqjm8VD14TH4XMFEZ4xnjbXJ4SyEeLc', image: 'https://pump.fun/image/DbukKVm7tdNaeaqjm8VD14TH4XMFEZ4xnjbXJ4SyEeLc', desc: 'Security intelligence', page: null },
+  { symbol: 'FRANC', name: 'FrancPaw', mint: 'BJ8MySahjvB3XFrKWxhFR4wsnjpgqY4gGRmU9wXHLCvu', image: 'https://pump.fun/image/BJ8MySahjvB3XFrKWxhFR4wsnjpgqY4gGRmU9wXHLCvu', desc: 'Behavioral intelligence', page: null },
+];
+
+// === STATE ===
+let selectedMint = FLEET_TOKENS[0].mint;
+let prices = {};
+let mcaps = {};
+let solPrice = 0;
+let jupiterLoaded = false;
+
+// === RENDER TOKEN LIST ===
+function renderTokenList() {
+  const list = document.getElementById('token-list');
+  list.innerHTML = FLEET_TOKENS.map(t => {
+    const price = prices[t.mint];
+    const mcap = mcaps[t.mint];
+    const isSelected = t.mint === selectedMint;
+    const priceStr = price ? '$' + formatPrice(price) : '---';
+    const mcapStr = mcap ? '$' + formatNum(mcap) : '---';
+    return `<div class="token-row${isSelected ? ' selected' : ''}" data-mint="${t.mint}" onclick="selectToken('${t.mint}')">
+      <img class="token-img" src="${t.image}" alt="${t.name}" width="40" height="40" onerror="this.src='assets/logo.png'">
+      <div class="token-info">
+        <div class="token-name">${t.name}</div>
+        <div class="token-symbol">$${t.symbol}</div>
+      </div>
+      <div class="token-price" id="price-${t.mint}">${priceStr}</div>
+      <div class="token-mcap" id="mcap-${t.mint}">${mcapStr}</div>
+      <button class="swap-btn" onclick="event.stopPropagation();selectToken('${t.mint}')">Swap</button>
+    </div>`;
+  }).join('');
+}
+
+function formatPrice(p) {
+  if (p >= 1) return p.toFixed(2);
+  if (p >= 0.01) return p.toFixed(4);
+  if (p >= 0.0001) return p.toFixed(6);
+  return p.toExponential(2);
+}
+
+function formatNum(n) {
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+  return n.toFixed(0);
+}
+
+// === PRICE FETCHING ===
+async function fetchPrices() {
+  try {
+    const allMints = FLEET_TOKENS.map(t => t.mint).join(',');
+    const resp = await fetch(`https://api.jup.ag/price/v2?ids=${allMints},${SOL_MINT}`);
+    if (!resp.ok) return;
+    const data = await resp.json();
+    if (!data.data) return;
+
+    // SOL price
+    if (data.data[SOL_MINT]) {
+      solPrice = parseFloat(data.data[SOL_MINT].price || '0');
+      document.getElementById('sol-price').textContent = '$' + solPrice.toFixed(0);
+    }
+
+    // Token prices
+    for (const t of FLEET_TOKENS) {
+      if (data.data[t.mint]) {
+        const newPrice = parseFloat(data.data[t.mint].price || '0');
+        const oldPrice = prices[t.mint] || 0;
+        prices[t.mint] = newPrice;
+
+        const el = document.getElementById('price-' + t.mint);
+        if (el) {
+          el.textContent = '$' + formatPrice(newPrice);
+          if (oldPrice > 0 && newPrice !== oldPrice) {
+            el.classList.remove('flash-up', 'flash-down');
+            void el.offsetWidth;
+            el.classList.add(newPrice > oldPrice ? 'flash-up' : 'flash-down');
+          }
+        }
+      }
+    }
+
+    updateFleetMcap();
+    updateTimestamp();
+  } catch (e) {
+    console.error('Price fetch error:', e);
+  }
+}
+
+// === MCAP FETCHING ===
+async function fetchMcaps() {
+  for (const t of FLEET_TOKENS) {
+    try {
+      const resp = await fetch(`https://frontend-api-v3.pump.fun/coins/${t.mint}`);
+      if (!resp.ok) continue;
+      const data = await resp.json();
+      const vSol = (data.virtual_sol_reserves || 0) / 1e9;
+      const sp = solPrice || 80;
+      mcaps[t.mint] = vSol * sp * 2;
+
+      const el = document.getElementById('mcap-' + t.mint);
+      if (el) el.textContent = '$' + formatNum(mcaps[t.mint]);
+    } catch (e) {
+      // skip
+    }
+    await new Promise(r => setTimeout(r, 1200));
+  }
+  updateFleetMcap();
+}
+
+function updateFleetMcap() {
+  let total = 0;
+  for (const t of FLEET_TOKENS) {
+    if (mcaps[t.mint]) total += mcaps[t.mint];
+  }
+  if (total > 0) {
+    document.getElementById('fleet-mcap').textContent = '$' + formatNum(total);
+  }
+}
+
+function updateTimestamp() {
+  document.getElementById('last-updated').textContent = 'Updated ' + new Date().toLocaleTimeString();
+}
+
+// === TOKEN SELECTION ===
+function selectToken(mint) {
+  selectedMint = mint;
+  const token = FLEET_TOKENS.find(t => t.mint === mint);
+  if (!token) return;
+
+  document.getElementById('selected-label').textContent = '$' + token.symbol;
+
+  // Update selected styling
+  document.querySelectorAll('.token-row').forEach(row => {
+    row.classList.toggle('selected', row.dataset.mint === mint);
+  });
+
+  // Update external links
+  updateSwapLinks(token);
+
+  // Reinitialize Jupiter
+  initJupiter(mint);
+
+  // Scroll to swap on mobile
+  if (window.innerWidth <= 860) {
+    document.getElementById('jupiter-swap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function updateSwapLinks(token) {
+  const el = document.getElementById('swap-links');
+  el.innerHTML = `
+    <a class="swap-ext" href="https://pump.fun/coin/${token.mint}" target="_blank" rel="noopener">pump.fun</a>
+    <a class="swap-ext" href="https://dexscreener.com/solana/${token.mint}" target="_blank" rel="noopener">DexScreener</a>
+    <a class="swap-ext" href="https://jup.ag/swap/SOL-${token.mint}" target="_blank" rel="noopener">Jupiter</a>
+    <a class="swap-ext" href="https://solscan.io/token/${token.mint}" target="_blank" rel="noopener">Solscan</a>
+    ${token.page ? `<a class="swap-ext" href="${token.page}">Agent Page</a>` : ''}
+  `;
+}
+
+// === JUPITER PLUGIN ===
+function initJupiter(outputMint) {
+  if (!window.Jupiter) {
+    showFallback();
+    return;
+  }
+
+  try {
+    window.Jupiter.close();
+  } catch (e) {}
+
+  try {
+    window.Jupiter.init({
+      displayMode: 'integrated',
+      integratedTargetId: 'jupiter-swap',
+      endpoint: 'https://api.mainnet-beta.solana.com',
+      formProps: {
+        initialInputMint: SOL_MINT,
+        initialOutputMint: outputMint,
+        swapMode: 'ExactIn',
+      },
+      defaultExplorer: 'Solscan',
+    });
+    jupiterLoaded = true;
+    document.getElementById('fallback-links').classList.remove('show');
+  } catch (e) {
+    console.error('Jupiter init error:', e);
+    showFallback();
+  }
+}
+
+function showFallback() {
+  const el = document.getElementById('fallback-links');
+  el.classList.add('show');
+  el.innerHTML = '<p style="font-size:.8rem;color:var(--text-muted);margin-bottom:12px;padding:0 4px">Jupiter widget unavailable. Trade directly:</p>' +
+    FLEET_TOKENS.map(t => `
+      <a class="fallback-link" href="https://pump.fun/coin/${t.mint}" target="_blank" rel="noopener">
+        <img src="${t.image}" alt="${t.name}" width="24" height="24" onerror="this.src='assets/logo.png'">
+        $${t.symbol} on pump.fun
+      </a>`).join('');
+}
+
+// === URL PARAMS ===
+function handleUrlParams() {
+  const params = new URLSearchParams(window.location.search);
+  const tokenParam = params.get('token');
+  if (tokenParam) {
+    const found = FLEET_TOKENS.find(t => t.mint === tokenParam || t.symbol.toLowerCase() === tokenParam.toLowerCase());
+    if (found) {
+      selectedMint = found.mint;
+    }
+  }
+}
+
+// === INIT ===
+handleUrlParams();
+renderTokenList();
+updateSwapLinks(FLEET_TOKENS.find(t => t.mint === selectedMint));
+
+// Start data fetching
+fetchPrices();
+fetchMcaps();
+
+// Poll prices every 30s, mcaps every 90s
+setInterval(fetchPrices, 30000);
+setInterval(fetchMcaps, 90000);
+
+// Init Jupiter when loaded
+function waitForJupiter() {
+  if (window.Jupiter) {
+    initJupiter(selectedMint);
+  } else {
+    setTimeout(waitForJupiter, 500);
+  }
+}
+setTimeout(waitForJupiter, 1000);
+</script>
+</body>
+</html>
