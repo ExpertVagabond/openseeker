@@ -7,24 +7,24 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const RPC_URL = "https://api.mainnet-beta.solana.com";
 const FLEET_DIR = "/Volumes/Virtual Server/configs/dotfiles/.solana-keys/fleet";
 const BURNER_PATH = "/Volumes/Virtual Server/configs/dotfiles/.solana-keys/openseeker-burner.json";
-const LOGO_PATH = path.join(__dirname, "logo.png");
+const IMAGES_DIR = path.join(__dirname, "images");
 const TARGET_BAL = 0.2;
 const BUY_AMOUNT = 0.1;
 
 const conn = new Connection(RPC_URL, "confirmed");
 
-// 10 unique AI agent themed tokens
+// 10 unique AI agent themed tokens with custom images
 const TOKENS = [
-  { name: "SeekBot", symbol: "SEEKBOT", desc: "Autonomous trading bot for Solana Seeker. Executes Jupiter swaps, monitors DeFi positions, and manages portfolio from your pocket." },
-  { name: "AgentVault", symbol: "AVAULT", desc: "Secure AI vault agent with hardware-backed key storage. Air-gapped transaction signing meets mobile convenience." },
-  { name: "NeuralSwap", symbol: "NSWAP", desc: "Neural network powered swap optimizer. Finds best routes across DEXs using on-device ML inference on Seeker hardware." },
-  { name: "PhoneChain", symbol: "PCHAIN", desc: "Mobile-first blockchain agent. Full node validation, transaction relay, and consensus participation from Solana Seeker." },
-  { name: "SeedGuard", symbol: "SEEDG", desc: "Seed Vault security agent. Monitors wallet activity, flags suspicious transactions, and enforces spending policies on-device." },
-  { name: "SkillNet", symbol: "SKNET", desc: "Modular AI skill marketplace for mobile agents. 42+ composable skills from DeFi to social to analytics." },
-  { name: "MobileDAO", symbol: "MDAO", desc: "Governance agent for mobile-native DAOs. Vote, propose, and delegate from your Seeker phone with biometric auth." },
-  { name: "TeleRelay", symbol: "TRELAY", desc: "Telegram relay agent bridging mobile AI to messaging. Natural language commands for swaps, transfers, and monitoring." },
-  { name: "ColdSign", symbol: "CSIGN", desc: "Cold signing protocol for mobile transactions. Hardware isolation meets instant execution on Solana Seeker." },
-  { name: "SwarmNode", symbol: "SWARM", desc: "Distributed AI swarm node running on Seeker hardware. Coordinated multi-agent intelligence across mobile devices." },
+  { name: "SeekBot", symbol: "SEEKBOT", image: "seekbot.png", desc: "Autonomous trading bot for Solana Seeker. Executes Jupiter swaps, monitors DeFi positions, and manages portfolio from your pocket." },
+  { name: "AgentVault", symbol: "AVAULT", image: "agentvault.png", desc: "Secure AI vault agent with hardware-backed key storage. Air-gapped transaction signing meets mobile convenience." },
+  { name: "NeuralSwap", symbol: "NSWAP", image: "neuralswap.png", desc: "Neural network powered swap optimizer. Finds best routes across DEXs using on-device ML inference on Seeker hardware." },
+  { name: "PhoneChain", symbol: "PCHAIN", image: "phonechain.png", desc: "Mobile-first blockchain agent. Full node validation, transaction relay, and consensus participation from Solana Seeker." },
+  { name: "SeedGuard", symbol: "SEEDG", image: "seedguard.png", desc: "Seed Vault security agent. Monitors wallet activity, flags suspicious transactions, and enforces spending policies on-device." },
+  { name: "SkillNet", symbol: "SKNET", image: "skillnet.png", desc: "Modular AI skill marketplace for mobile agents. 42+ composable skills from DeFi to social to analytics." },
+  { name: "MobileDAO", symbol: "MDAO", image: "mobiledao.png", desc: "Governance agent for mobile-native DAOs. Vote, propose, and delegate from your Seeker phone with biometric auth." },
+  { name: "TeleRelay", symbol: "TRELAY", image: "telerelay.png", desc: "Telegram relay agent bridging mobile AI to messaging. Natural language commands for swaps, transfers, and monitoring." },
+  { name: "ColdSign", symbol: "CSIGN", image: "coldsign.png", desc: "Cold signing protocol for mobile transactions. Hardware isolation meets instant execution on Solana Seeker." },
+  { name: "SwarmNode", symbol: "SWARM", image: "swarmnode.png", desc: "Distributed AI swarm node running on Seeker hardware. Coordinated multi-agent intelligence across mobile devices." },
 ];
 
 function loadWallet(fp) {
@@ -46,8 +46,9 @@ async function topUpWallet(burner, target, amount) {
 }
 
 async function uploadMetadata(token) {
+  const imagePath = path.join(IMAGES_DIR, token.image);
   const formData = new FormData();
-  formData.append("file", new Blob([fs.readFileSync(LOGO_PATH)]), "logo.png");
+  formData.append("file", new Blob([fs.readFileSync(imagePath)]), token.image);
   formData.append("name", token.name);
   formData.append("symbol", token.symbol);
   formData.append("description", token.desc + " Part of the OpenSeeker agent fleet. https://openseeker.pages.dev");
