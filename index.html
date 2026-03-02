@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenSeeker — The AI Agent Layer for Solana Seeker</title>
+<meta name="description" content="OpenSeeker is an autonomous AI agent that runs natively on the Solana Seeker phone. Wallet integration, Telegram relay, modular skills, cold signing security. Built by Purple Squirrel Media.">
+<meta name="theme-color" content="#dc2626">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<meta property="og:title" content="OpenSeeker — AI Agent for Solana Seeker">
+<meta property="og:description" content="An autonomous AI agent that runs natively on the Solana Seeker phone. Built by Purple Squirrel Media.">
+<meta property="og:image" content="assets/logo.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OpenSeeker — AI Agent for Solana Seeker">
+<meta name="twitter:description" content="Autonomous AI agent for Solana Seeker. Wallet integration, cold signing, modular skills.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--bg-card:#111113;--bg-card-hover:#1a1a1d;
+  --border:#222;--border-hover:#333;
+  --text:#e4e4e7;--text-muted:#71717a;--text-dim:#52525b;
+  --red:#dc2626;--red-glow:rgba(220,38,38,.15);--red-dim:#991b1b;
+  --green:#22c55e;--green-dim:#166534;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono','Fira Code',monospace;
+  --max:1120px;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{color:var(--red);text-decoration:none;transition:color .2s}
+a:hover{color:#ef4444}
+::selection{background:var(--red);color:#fff}
+img{max-width:100%;height:auto;display:block}
+
+/* Skip link */
+.skip{position:absolute;top:-40px;left:0;background:var(--red);color:#fff;padding:8px 16px;z-index:100;transition:top .2s}
+.skip:focus{top:0}
+
+/* Container */
+.container{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(10,10,10,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:16px 0}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo-group{display:flex;align-items:center;gap:12px}
+.logo-group img{width:36px;height:36px;border-radius:8px}
+.logo-text{font-size:1.25rem;font-weight:700;color:#fff;letter-spacing:-.02em}
+.logo-text span{color:var(--red)}
+.logo-sub{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-top:-2px}
+nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.nav-link{font-size:.8rem;color:var(--text-muted);padding:6px 12px;border-radius:6px;transition:all .2s}
+.nav-link:hover{color:#fff;background:var(--bg-card)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;font-size:.875rem;font-weight:600;transition:all .2s;border:none;cursor:pointer;font-family:var(--font)}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:hover{background:#ef4444;box-shadow:0 0 24px var(--red-glow);color:#fff}
+.btn-secondary{background:var(--bg-card);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--border-hover);background:var(--bg-card-hover);color:#fff}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid transparent}
+.btn-ghost:hover{color:#fff;border-color:var(--border)}
+
+/* Hero */
+.hero{padding:80px 0 60px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:.75rem;font-weight:500;color:var(--red);background:var(--red-glow);border:1px solid rgba(220,38,38,.2);margin-bottom:24px}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(2.5rem,6vw,4rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;color:#fff;max-width:800px;margin:0 auto 20px}
+.hero h1 span{color:var(--red)}
+.hero-sub{font-size:1.125rem;color:var(--text-muted);max-width:600px;margin:0 auto 32px;line-height:1.7}
+.hero-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:12px;overflow:hidden;max-width:720px;margin:0 auto 56px;border:1px solid var(--border)}
+.stat{background:var(--bg-card);padding:24px 16px;text-align:center}
+.stat-val{font-size:1.5rem;font-weight:700;color:#fff;font-family:var(--mono)}
+.stat-label{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+
+/* Hero screenshots */
+.hero-screens{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:960px;margin:0 auto}
+.hero-screens img{border-radius:16px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.5);transition:transform .3s}
+.hero-screens img:hover{transform:translateY(-4px)}
+
+/* Section */
+section{padding:80px 0}
+.section-header{text-align:center;margin-bottom:56px}
+.section-header h2{font-size:2rem;font-weight:700;color:#fff;letter-spacing:-.02em;margin-bottom:12px}
+.section-header p{color:var(--text-muted);max-width:560px;margin:0 auto;font-size:1rem}
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0 auto;max-width:400px}
+
+/* Capabilities grid */
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.cap-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;transition:all .25s}
+.cap-card:hover{border-color:var(--border-hover);background:var(--bg-card-hover)}
+.cap-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:16px;background:var(--red-glow);border:1px solid rgba(220,38,38,.15)}
+.cap-card h3{font-size:1rem;font-weight:600;color:#fff;margin-bottom:8px}
+.cap-card p{font-size:.875rem;color:var(--text-muted);line-height:1.6}
+
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:800px;margin:0 auto}
+.step{text-align:center;position:relative}
+.step-num{width:48px;height:48px;border-radius:50%;background:var(--red-glow);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--red);font-family:var(--mono);font-size:1.25rem;margin:0 auto 16px}
+.step h3{font-size:1rem;font-weight:600;color:#fff;margin-bottom:8px}
+.step p{font-size:.85rem;color:var(--text-muted)}
+
+/* SAB Score */
+.sab{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:48px;text-align:center;max-width:700px;margin:0 auto}
+.sab-score{font-size:4rem;font-weight:800;color:var(--red);font-family:var(--mono);line-height:1}
+.sab-label{font-size:.85rem;color:var(--text-muted);margin-top:8px;margin-bottom:24px}
+.sab-list{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:center}
+.sab-item{font-size:.85rem;color:var(--text-muted)}
+.sab-item strong{display:block;color:#fff;font-size:.95rem;margin-bottom:4px}
+
+/* Scenarios */
+.scenarios{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.scenario{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;font-family:var(--mono);font-size:.8rem;color:var(--text-muted);line-height:1.7;transition:border-color .2s}
+.scenario:hover{border-color:var(--border-hover)}
+.scenario::before{content:'>';color:var(--red);margin-right:8px;font-weight:700}
+
+/* Comparison table */
+.comparison{overflow-x:auto}
+.comparison table{width:100%;border-collapse:collapse;font-size:.85rem}
+.comparison th{text-align:left;padding:14px 16px;font-weight:600;color:#fff;border-bottom:2px solid var(--border)}
+.comparison th:not(:first-child){text-align:center;width:160px}
+.comparison td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text-muted)}
+.comparison td:not(:first-child){text-align:center}
+.comparison tr:hover td{background:var(--bg-card)}
+.check{color:var(--green);font-weight:700;font-size:1.1rem}
+.cross{color:var(--text-dim);font-size:1.1rem}
+
+/* Roadmap */
+.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.roadmap-col{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px}
+.roadmap-col h3{font-size:1rem;font-weight:600;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.roadmap-col ul{list-style:none;padding:0}
+.roadmap-col li{padding:6px 0;font-size:.85rem;color:var(--text-muted);display:flex;align-items:start;gap:8px}
+.roadmap-col li::before{content:'';width:6px;height:6px;border-radius:50%;margin-top:8px;flex-shrink:0}
+.shipped li::before{background:var(--green)}
+.next li::before{background:var(--red)}
+.future li::before{background:var(--text-dim)}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-brand{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text-muted)}
+.footer-brand img{width:24px;height:24px;border-radius:6px}
+.footer-links{display:flex;gap:16px}
+.footer-links a{font-size:.8rem;color:var(--text-muted)}
+.footer-links a:hover{color:#fff}
+
+/* Responsive */
+@media(max-width:768px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .hero-screens{grid-template-columns:repeat(2,1fr);gap:12px}
+  .steps{grid-template-columns:1fr;gap:32px}
+  .sab-list{grid-template-columns:1fr;gap:12px}
+  .roadmap{grid-template-columns:1fr}
+  .cap-grid{grid-template-columns:1fr}
+  nav{display:none}
+  .footer-inner{flex-direction:column}
+}
+@media(max-width:480px){
+  .hero h1{font-size:2rem}
+  .hero-screens{grid-template-columns:1fr 1fr}
+  .scenarios{grid-template-columns:1fr}
+}
+
+/* Animations */
+.fade-in{opacity:0;transform:translateY(20px);transition:all .6s ease-out}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"MobileApplication",
+  "name":"OpenSeeker",
+  "operatingSystem":"Android",
+  "applicationCategory":"Utilities",
+  "description":"An autonomous AI agent that runs natively on the Solana Seeker phone.",
+  "url":"https://openseeker.pages.dev",
+  "author":{"@type":"Organization","name":"Purple Squirrel Media","url":"https://purplesquirrelmedia.io"}
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header>
+<div class="container header-inner">
+  <div class="logo-group">
+    <img src="assets/logo.png" alt="OpenSeeker" width="36" height="36">
+    <div>
+      <div class="logo-text">Open<span>Seeker</span></div>
+      <div class="logo-sub">AgentOS for Seeker</div>
+    </div>
+  </div>
+  <nav>
+    <a class="nav-link" href="#capabilities">Capabilities</a>
+    <a class="nav-link" href="#how-it-works">Setup</a>
+    <a class="nav-link" href="#comparison">Compare</a>
+    <a class="nav-link" href="#roadmap">Roadmap</a>
+    <a class="btn btn-primary" href="https://github.com/ExpertVagabond/openseeker" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</div>
+</header>
+
+<main id="main">
+
+<!-- Hero -->
+<section class="hero">
+<div class="container">
+  <div class="hero-badge">Live on Solana Seeker</div>
+  <h1>The AI Agent Layer for <span>Solana Seeker</span></h1>
+  <p class="hero-sub">An autonomous AI agent that runs natively on your Seeker phone. Wallet integration, Telegram relay, cold signing security, modular skills. Always on. Always yours.</p>
+  <div class="hero-buttons">
+    <a class="btn btn-primary" href="https://github.com/ExpertVagabond/openseeker/releases" target="_blank" rel="noopener">Download APK</a>
+    <a class="btn btn-secondary" href="https://github.com/ExpertVagabond/openseeker" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn btn-ghost" href="#how-it-works">Quick Setup</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-val">200K+</div><div class="stat-label">Seeker Devices</div></div>
+    <div class="stat"><div class="stat-val">42+</div><div class="stat-label">Built-in Skills</div></div>
+    <div class="stat"><div class="stat-val">10</div><div class="stat-label">Agent Swarm</div></div>
+    <div class="stat"><div class="stat-val">24/7</div><div class="stat-label">Autonomous</div></div>
+  </div>
+</div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Capabilities -->
+<section id="capabilities" class="fade-in">
+<div class="container">
+  <div class="section-header">
+    <h2>What OpenSeeker Can Do</h2>
+    <p>A full agent operating system running on your Solana Seeker phone.</p>
+  </div>
+  <div class="cap-grid">
+    <div class="cap-card">
+      <div class="cap-icon">&#9878;</div>
+      <h3>Solana Wallet Integration</h3>
+      <p>Native Seed Vault access, token swaps via Jupiter, DCA positions, portfolio tracking. Your keys never leave the device.</p>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">&#9881;</div>
+      <h3>Autonomous AI Agent</h3>
+      <p>Claude-powered reasoning with persistent memory. Runs 24/7 with configurable heartbeat intervals. Learns your patterns over time.</p>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">&#9993;</div>
+      <h3>Social & Messaging</h3>
+      <p>Telegram relay, Moltbook integration, SMS and contacts access. Your agent communicates across platforms on your behalf.</p>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">&#9889;</div>
+      <h3>Deep Device Control</h3>
+      <p>GPS, camera, battery monitoring, system diagnostics. Full Node.js runtime on-device with console logging and debug tools.</p>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">&#128269;</div>
+      <h3>Web Intelligence</h3>
+      <p>Real-time crypto prices, web search, news aggregation, weather. Your agent stays informed and acts on market signals.</p>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">&#128736;</div>
+      <h3>Modular Skill System</h3>
+      <p>42+ built-in skills with a community marketplace coming soon. Bookmark, briefing, calculator, crypto-prices, define, and more.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- How it Works -->
+<section id="how-it-works" class="fade-in">
+<div class="container">
+  <div class="section-header">
+    <h2>Get Started in 3 Steps</h2>
+    <p>From install to autonomous agent in under 5 minutes.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Install</h3>
+      <p>Download the APK or get it from the Solana dApp Store. Runs natively on Seeker hardware.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Connect</h3>
+      <p>Scan a config QR to link your Anthropic API key, Telegram bot, and agent identity in seconds.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Go Live</h3>
+      <p>Your agent starts its heartbeat cycle. It monitors, acts, and learns — autonomously, 24/7.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Self-Aware Agent -->
+<section class="fade-in">
+<div class="container">
+  <div class="section-header">
+    <h2>Self-Aware Agent</h2>
+    <p>OpenSeeker passes the Self-Awareness Benchmark for autonomous agents.</p>
+  </div>
+  <div class="sab">
+    <div class="sab-score">94.2</div>
+    <div class="sab-label">SAB Benchmark Score</div>
+    <div class="sab-list">
+      <div class="sab-item"><strong>Persistent Memory</strong>3-layer memory: daily logs, curated wisdom, session context</div>
+      <div class="sab-item"><strong>Tool Awareness</strong>Knows its own capabilities, skill versions, and device state</div>
+      <div class="sab-item"><strong>Proactive Action</strong>Heartbeat-driven checks, background tasks, autonomous engagement</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Real-World Scenarios -->
+<section class="fade-in">
+<div class="container">
+  <div class="section-header">
+    <h2>Real-World Scenarios</h2>
+    <p>Natural language commands that trigger real on-device actions.</p>
+  </div>
+  <div class="scenarios">
+    <div class="scenario">"Swap 0.5 SOL to USDC using Jupiter, best route"</div>
+    <div class="scenario">"Check my portfolio and alert me on Telegram if SOL drops below $140"</div>
+    <div class="scenario">"Send a daily briefing to my Telegram at 8am — market, calendar, weather"</div>
+    <div class="scenario">"Research the top 5 new Solana tokens launched today and summarize"</div>
+    <div class="scenario">"Monitor my wallet for incoming transactions and log them"</div>
+    <div class="scenario">"Post my weekly portfolio update to Moltbook as coldstar_psm"</div>
+  </div>
+</div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Comparison -->
+<section id="comparison" class="fade-in">
+<div class="container">
+  <div class="section-header">
+    <h2>The Difference</h2>
+    <p>Why OpenSeeker isn't just another AI app.</p>
+  </div>
+  <div class="comparison">
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>Regular AI Apps</th><th>OpenSeeker on Seeker</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Runs on device</td><td class="cross">&times;</td><td class="check">&check;</td></tr>
+        <tr><td>Seed Vault wallet access</td><td class="cross">&times;</td><td class="check">&check;</td></tr>
+        <tr><td>Persistent memory</td><td class="cross">&times;</td><td class="check">&check;</td></tr>
+        <tr><td>Shell / Node.js runtime</td><td class="cross">&times;</td><td class="check">&check;</td></tr>
+        <tr><td>Telegram integration</td><td class="cross">&times;</td><td class="check">&check;</td></tr>
+        <tr><td>Moltbook AI social</td><td class="cross">&times;</td><td class="check">&check;</td></tr>
+        <tr><td>Autonomous scheduling</td><td class="cross">&times;</td><td class="check">&check;</td></tr>
+        <tr><td>Extensible skill system</td><td class="cross">&times;</td><td class="check">&check;</td></tr>
+        <tr><td>Cold signing security</td><td class="cross">&times;</td><td class="check">&check;</td></tr>
+        <tr><td>OpenClaw swarm compatible</td><td class="cross">&times;</td><td class="check">&check;</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Roadmap -->
+<section id="roadmap" class="fade-in">
+<div class="container">
+  <div class="section-header">
+    <h2>Roadmap</h2>
+    <p>What we've shipped, what's next, and what's on the horizon.</p>
+  </div>
+  <div class="roadmap">
+    <div class="roadmap-col shipped">
+      <h3><span style="color:var(--green)">&#10003;</span> Shipped</h3>
+      <ul>
+        <li>Persistent agent memory (3-layer)</li>
+        <li>Solana wallet + Seed Vault bridge</li>
+        <li>Jupiter token swaps</li>
+        <li>Telegram message relay</li>
+        <li>42 built-in skills</li>
+        <li>System console + debug logging</li>
+        <li>QR config setup</li>
+        <li>Heartbeat cycle engine</li>
+        <li>Moltbook social integration</li>
+        <li>OpenClaw gateway bridge</li>
+      </ul>
+    </div>
+    <div class="roadmap-col next">
+      <h3><span style="color:var(--red)">&#9679;</span> Next</h3>
+      <ul>
+        <li>Skill Marketplace</li>
+        <li>Transaction monitoring alerts</li>
+        <li>DCA position management</li>
+        <li>Coldstar air-gap signing</li>
+        <li>Embedded vector search</li>
+        <li>Voice commands via Qwen3-TTS</li>
+        <li>Portfolio analytics dashboard</li>
+      </ul>
+    </div>
+    <div class="roadmap-col future">
+      <h3><span style="color:var(--text-dim)">&#9675;</span> Future</h3>
+      <ul>
+        <li>Multi-agent swarm on-device</li>
+        <li>Discord & X integration</li>
+        <li>Multi-chain support (Base, ETH)</li>
+        <li>DePIN sensor network</li>
+        <li>Agent-to-agent P2P mesh</li>
+        <li>On-chain reputation (FairScore)</li>
+        <li>Community skill SDK</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+</main>
+
+<footer>
+<div class="container footer-inner">
+  <div class="footer-brand">
+    <img src="assets/logo.png" alt="OpenSeeker" width="24" height="24">
+    <span>OpenSeeker &mdash; Built by <a href="https://purplesquirrelmedia.io" target="_blank" rel="noopener">Purple Squirrel Media</a></span>
+  </div>
+  <div class="footer-links">
+    <a href="https://github.com/ExpertVagabond/openseeker" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.moltbook.com/u/openseeker" target="_blank" rel="noopener">Moltbook</a>
+    <a href="https://x.com/squirrel_eth" target="_blank" rel="noopener">X / Twitter</a>
+  </div>
+</div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
