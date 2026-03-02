@@ -2188,3 +2188,430 @@ Starting volume cycles...
   Skip — low balance (0.0000 SOL)
   Next cycle in 46s...
 
+[4:13:44 PM] Cycle #412 wallet-6 on $SWARM: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 23s...
+
+[4:14:07 PM] Cycle #413 $SKNET: wallet-6 SELL → wallet-6 BUY
+  Sold: 53x5es9QifnmVX6Smiyu...
+  Bought 0.02 SOL: 5xNxD8GAGyY1dU6WDcPn...
+  Total volume generated: 4.8000 SOL
+
+  Next cycle in 28s...
+
+[4:14:39 PM] Cycle #414 wallet-2 on $PCHAIN: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 37s...
+
+[4:15:17 PM] Cycle #415 wallet-8 on $PCHAIN: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 48s...
+
+[4:16:06 PM] Cycle #416 wallet-3 on $SWARM: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 32s...
+
+[4:16:38 PM] Cycle #417 $AVAULT: wallet-2 SELL → wallet-5 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: Qw4CqsdFDgkgj5nBtGpk...
+  Total volume generated: 4.8200 SOL
+
+  Next cycle in 40s...
+
+[4:17:20 PM] Cycle #418 wallet-9 on $SEEKBOT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 48s...
+
+[4:18:08 PM] Cycle #419 wallet-5 on $MDAO: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 58s...
+
+[4:19:06 PM] Cycle #420 wallet-10 on $CSIGN: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 36s...
+
+[4:19:42 PM] Cycle #421 wallet-6 on $SKNET: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 44s...
+
+[4:20:26 PM] Cycle #422 $MDAO: wallet-2 BUY + wallet-7 SELL
+  wallet-2 bought: 253cXrYa6ZvaKxFFGs4n...
+  Total volume generated: 4.8600 SOL
+
+  Next cycle in 55s...
+
+[4:21:23 PM] Cycle #423 $SWARM: wallet-10 SELL → wallet-1 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: 5GQo9yZWWkb6UANFX1fb...
+  Total volume generated: 4.8800 SOL
+
+  Next cycle in 42s...
+
+[4:22:06 PM] Cycle #424 $AVAULT: wallet-2 SELL → wallet-6 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: QbrW8HWkfWquJPAnQPMq...
+  Total volume generated: 4.9000 SOL
+
+  Next cycle in 26s...
+
+[4:22:33 PM] Cycle #425 $CSIGN: wallet-9 SELL → wallet-6 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: 67kCQLPwpGyVEqMZc8AB...
+  Total volume generated: 4.9200 SOL
+
+  Next cycle in 39s...
+
+[4:23:13 PM] Cycle #426 wallet-10 on $NSWAP: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 32s...
+
+[4:23:45 PM] Cycle #427 wallet-6 on $SEEDG: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 46s...
+
+[4:24:32 PM] Cycle #428 $AVAULT: wallet-2 SELL → wallet-4 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: AFboaV8J5bSaFrcDhrSG...
+  Total volume generated: 4.9400 SOL
+
+  Next cycle in 49s...
+
+[4:25:24 PM] Cycle #429 $SKNET: wallet-6 SELL → wallet-2 BUY
+  Sold: 4fzmN8UVQExES9ByYMQk...
+  Bought 0.02 SOL: 4J6WgVJfJVx7TgWdXtnz...
+  Total volume generated: 4.9800 SOL
+
+  Next cycle in 49s...
+
+[4:26:17 PM] Cycle #430 $TRELAY: wallet-2 BUY + wallet-8 SELL
+  wallet-2 bought: 3JNGqhwwdjshMErfmu8n...
+  Total volume generated: 5.0200 SOL
+
+  Next cycle in 49s...
+
+[4:27:07 PM] Cycle #431 $PCHAIN: wallet-6 BUY + wallet-4 SELL
+  wallet-6 bought: 2ZmrZTHwEWqRqw4qSqb7...
+  Total volume generated: 5.0600 SOL
+
+  Next cycle in 47s...
+
+[4:27:55 PM] Cycle #432 wallet-5 on $SEEKBOT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 28s...
+
+[4:28:23 PM] Cycle #433 wallet-3 on $NSWAP: SELL
+  Sell failed (no tokens?)
+  Total volume generated: 5.0600 SOL
+
+  Next cycle in 23s...
+
+[4:28:47 PM] Cycle #434 wallet-7 on $SEEKBOT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 24s...
+
+[4:29:11 PM] Cycle #435 wallet-1 on $SEEKBOT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 59s...
+
+[4:30:10 PM] Cycle #436 wallet-8 on $TRELAY: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 59s...
+
+[4:33:01 PM] Cycle #437 wallet-4 on $AVAULT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 43s...
+
+[4:33:44 PM] Cycle #438 wallet-2 on $SKNET: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 28s...
+
+[4:34:12 PM] Cycle #439 wallet-2 on $AVAULT: SELL
+  Sell failed (no tokens?)
+  Total volume generated: 5.0600 SOL
+
+  Next cycle in 55s...
+
+[4:35:08 PM] Cycle #440 $AVAULT: wallet-2 SELL → wallet-8 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: DfJhFiLYqVBFrJsNf4dn...
+  Total volume generated: 5.0800 SOL
+
+  Next cycle in 42s...
+
+[4:35:52 PM] Cycle #441 $AVAULT: wallet-4 BUY + wallet-2 SELL
+  wallet-4 bought: 4DVk3W165j4ipc1Xivuq...
+  Total volume generated: 5.1200 SOL
+
+  Next cycle in 37s...
+
+[4:36:30 PM] Cycle #442 wallet-4 on $SKNET: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 57s...
+
+[4:37:26 PM] Cycle #443 wallet-7 on $AVAULT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 48s...
+
+[4:38:14 PM] Cycle #444 wallet-2 on $TRELAY: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 59s...
+
+[4:39:14 PM] Cycle #445 wallet-9 on $CSIGN: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 45s...
+
+[4:39:59 PM] Cycle #446 wallet-3 on $TRELAY: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 36s...
+
+[4:40:35 PM] Cycle #447 wallet-5 on $SWARM: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 24s...
+
+[4:40:58 PM] Cycle #448 wallet-1 on $PCHAIN: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 47s...
+
+[4:41:46 PM] Cycle #449 wallet-5 on $PCHAIN: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 50s...
+
+[4:42:36 PM] Cycle #450 wallet-3 on $PCHAIN: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 49s...
+
+[4:43:25 PM] Cycle #451 $SWARM: wallet-10 SELL → wallet-2 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: 2YDPXcU2MHA5e7AVURSF...
+  Total volume generated: 5.1400 SOL
+
+  Next cycle in 58s...
+
+[4:44:25 PM] Cycle #452 wallet-1 on $SEEKBOT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 59s...
+
+[4:45:24 PM] Cycle #453 wallet-6 on $SKNET: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 50s...
+
+[4:46:15 PM] Cycle #454 wallet-4 on $SEEKBOT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 42s...
+
+[4:46:57 PM] Cycle #455 wallet-1 on $NSWAP: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 47s...
+
+[4:47:44 PM] Cycle #456 wallet-7 on $MDAO: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 48s...
+
+[4:48:33 PM] Cycle #457 wallet-6 on $SKNET: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 51s...
+
+[4:49:53 PM] Cycle #458 wallet-5 on $SEEDG: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 45s...
+
+[4:50:38 PM] Cycle #459 wallet-8 on $MDAO: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 22s...
+
+[4:51:01 PM] Cycle #460 $SWARM: wallet-10 SELL → wallet-3 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: vmGvkVAQRRm6fknanEjM...
+  Total volume generated: 5.1600 SOL
+
+  Next cycle in 52s...
+
+[4:51:55 PM] Cycle #461 wallet-6 on $TRELAY: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 27s...
+
+[4:52:22 PM] Cycle #462 wallet-1 on $SEEKBOT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 31s...
+
+[4:52:53 PM] Cycle #463 $SEEKBOT: wallet-2 BUY + wallet-1 SELL
+  wallet-2 bought: Zp3cndzMQm9GN2sbEm4y...
+  Total volume generated: 5.2000 SOL
+
+  Next cycle in 39s...
+
+[4:53:32 PM] Cycle #464 $SKNET: wallet-6 SELL → wallet-9 BUY
+  Sold: 5BHJ7jHbpZhEZV9BzgLJ...
+  Bought 0.02 SOL: 3F1nC3ZZqkzShwPqdKH1...
+  Total volume generated: 5.2400 SOL
+
+  Next cycle in 55s...
+
+[4:54:32 PM] Cycle #465 wallet-2 on $PCHAIN: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 34s...
+
+[5:01:16 PM] Cycle #466 wallet-3 on $NSWAP: SELL
+  Sell failed (no tokens?)
+  Total volume generated: 5.2400 SOL
+
+  Next cycle in 55s...
+
+[5:02:12 PM] Cycle #467 $SEEDG: wallet-6 BUY + wallet-5 SELL
+  wallet-6 bought: kyk9Tyuz7KZijpgkxifP...
+  Total volume generated: 5.2800 SOL
+
+  Next cycle in 50s...
+
+[5:03:19 PM] Cycle #468 wallet-8 on $TRELAY: SELL
+  Sell failed (no tokens?)
+  Total volume generated: 5.2800 SOL
+
+  Next cycle in 51s...
+
+[5:04:11 PM] Cycle #469 wallet-9 on $NSWAP: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 52s...
+
+[5:05:03 PM] Cycle #470 $SWARM: wallet-10 SELL → wallet-3 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: 2Zcs2bKWGgTJBNz7FGcr...
+  Total volume generated: 5.3000 SOL
+
+  Next cycle in 47s...
+
+[5:05:52 PM] Cycle #471 wallet-4 on $SWARM: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 34s...
+
+[5:06:27 PM] Cycle #472 $TRELAY: wallet-5 BUY + wallet-8 SELL
+  wallet-5 bought: 2S6QYG7UYWf2qY5V376W...
+  Total volume generated: 5.3400 SOL
+
+  Next cycle in 55s...
+
+[5:07:22 PM] Cycle #473 wallet-9 on $MDAO: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 32s...
+
+[5:07:54 PM] Cycle #474 $SEEDG: wallet-5 SELL → wallet-2 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: 3vK8Fm8juorJpTbSPwn9...
+  Total volume generated: 5.3600 SOL
+
+  Next cycle in 33s...
+
+[5:08:29 PM] Cycle #475 $AVAULT: wallet-2 SELL → wallet-4 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: XDFyTit3yeRKcEYtBDdJ...
+  Total volume generated: 5.3800 SOL
+
+  Next cycle in 34s...
+
+[5:09:04 PM] Cycle #476 wallet-3 on $TRELAY: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 26s...
+
+[5:09:31 PM] Cycle #477 wallet-4 on $SEEKBOT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 21s...
+
+[5:09:52 PM] Cycle #478 wallet-5 on $NSWAP: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 50s...
+
+[5:10:42 PM] Cycle #479 wallet-5 on $PCHAIN: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 36s...
+
+[5:11:19 PM] Cycle #480 wallet-5 on $SEEKBOT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 43s...
+
+[5:12:02 PM] Cycle #481 $NSWAP: wallet-4 BUY + wallet-3 SELL
+  wallet-4 bought: 4UnjRKTT98s48hwCcRce...
+  Total volume generated: 5.4200 SOL
+
+  Next cycle in 34s...
+
+[5:12:37 PM] Cycle #482 $CSIGN: wallet-6 BUY + wallet-9 SELL
+  wallet-6 bought: 3QVyKzL4UPpnp9wmEWSM...
+  Total volume generated: 5.4600 SOL
+
+  Next cycle in 33s...
+
+[5:13:10 PM] Cycle #483 wallet-4 on $SEEDG: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 53s...
+
+[5:14:03 PM] Cycle #484 wallet-3 on $AVAULT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 46s...
+
+[5:14:49 PM] Cycle #485 wallet-1 on $TRELAY: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 56s...
+
+[5:15:46 PM] Cycle #486 wallet-8 on $SKNET: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 28s...
+
+[5:16:15 PM] Cycle #487 wallet-6 on $NSWAP: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 42s...
+
+[5:16:57 PM] Cycle #488 $TRELAY: wallet-8 SELL → wallet-9 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: gUJUhNmMETkiYhFf25MW...
+  Total volume generated: 5.4800 SOL
+
+  Next cycle in 38s...
+
+[5:17:36 PM] Cycle #489 wallet-6 on $CSIGN: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 44s...
+
+[5:18:20 PM] Cycle #490 wallet-8 on $SEEKBOT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 52s...
+
+[5:21:26 PM] Cycle #491 wallet-3 on $CSIGN: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 32s...
+
+[5:21:58 PM] Cycle #492 wallet-3 on $NSWAP: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 41s...
+
+[5:22:40 PM] Cycle #493 wallet-9 on $SEEKBOT: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 29s...
+
+[5:23:08 PM] Cycle #494 wallet-2 on $SKNET: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 23s...
+
+[5:23:31 PM] Cycle #495 $MDAO: wallet-7 SELL → wallet-10 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: of172Z84TwP1X1co6umc...
+  Total volume generated: 5.5000 SOL
+
+  Next cycle in 51s...
+
+[5:24:23 PM] Cycle #496 $SEEDG: wallet-6 BUY + wallet-5 SELL
+  wallet-6 bought: 3CNAuFJysY5fXZ9PWTcd...
+  Total volume generated: 5.5400 SOL
+
+  Next cycle in 53s...
+
+[5:25:17 PM] Cycle #497 $SWARM: wallet-10 SELL → wallet-8 BUY
+  Sell failed (no tokens?)
+  Bought 0.02 SOL: 3pwFzpQS2cDLkW3QiXSm...
+  Total volume generated: 5.5600 SOL
+
+  Next cycle in 49s...
+
+[5:26:07 PM] Cycle #498 wallet-5 on $CSIGN: BUY
+  Skip — low balance (0.0000 SOL)
+  Next cycle in 52s...
+
