@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const RPC_URL = "https://api.mainnet-beta.solana.com";
 const FLEET_DIR = "/Volumes/Virtual Server/configs/dotfiles/.solana-keys/fleet";
-const SELL_MCAP = parseFloat(process.env.SELL_MCAP || "4500"); // $4,500 market cap trigger
+const SELL_MCAP = parseFloat(process.env.SELL_MCAP || "25000"); // $25K market cap trigger (baseline is ~$8.4K)
 const SLIPPAGE = parseInt(process.env.SLIPPAGE || "30");
 const CHECK_INTERVAL = parseInt(process.env.CHECK_INTERVAL || "15"); // seconds between price checks
 
