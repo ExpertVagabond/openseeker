@@ -1,0 +1,92 @@
+[
+  {
+    "wallet": 1,
+    "name": "SeekBot",
+    "symbol": "SEEKBOT",
+    "desc": "Autonomous trading bot for Solana Seeker. Executes Jupiter swaps, monitors DeFi positions, and manages portfolio from your pocket.",
+    "mint": "DydxLgFFvp6XzNDj62Q9MT8xzbdZi4XgFWVqwmftZJk",
+    "createSig": "n89bmt2HbyLhg9Asyp9pjV3nfEEdhwWcewu56tnDNUDk9s7QA8YHKafuw1ttYB4F7hCX68ekqo6WtePcxCK41ZC",
+    "buySig": "hzGknAmwBsYA4KPbD31ZsGkaX6P8FUTVgRMXT3WQ7PdZYvQUfgeevACVdpksizQeFabiPJq7GTGqnLk7wBTrsTE"
+  },
+  {
+    "wallet": 2,
+    "name": "AgentVault",
+    "symbol": "AVAULT",
+    "desc": "Secure AI vault agent with hardware-backed key storage. Air-gapped transaction signing meets mobile convenience.",
+    "mint": "D1c9xLKjFVtKa8mr3b9JkyCJfqWr3xdm9k6VJb94whSA",
+    "createSig": "5msNZG36Ubgph2Wa8nnod9tGpNpJxZMTbHaTttJZCbuZZfvA2oLYX4SpnteSrFoaN2jCGTm5iCiuy8c4nUzHcw5x",
+    "buySig": "5uBmmRuvaiF3GGAh8ANK5yJcRFS6qsESsTe5MM6ZA2t6XA13urDz3CNUv4q9Sn22PVpnxyDAHS76hGmvGbG1xKGU"
+  },
+  {
+    "wallet": 3,
+    "name": "NeuralSwap",
+    "symbol": "NSWAP",
+    "desc": "Neural network powered swap optimizer. Finds best routes across DEXs using on-device ML inference on Seeker hardware.",
+    "mint": "FEaCiFSDqfCzrytTBq3Z4DscdJL2MhGqk5idR3B2JwHa",
+    "createSig": "P4s8Xu6SGbrcbHusuWV2XrRc8YtcTmM4JHDyADPGcDvQjtJMJKWWpwf8Gv9WpVENMVBARHSu1CwTva62j22ChED",
+    "buySig": "5BHRheJ4U7vNSmTvuiwtiyJbcfvyErYDoRAx5TggkBQ5jQyQ39XpaydZXkEHNqRdG1xrV7ukrXxkEo2XdibDihD5"
+  },
+  {
+    "wallet": 4,
+    "name": "PhoneChain",
+    "symbol": "PCHAIN",
+    "desc": "Mobile-first blockchain agent. Full node validation, transaction relay, and consensus participation from Solana Seeker.",
+    "mint": "D8JZbDSXXjFxSPXvbziMZWQF8RMmzywnmvgRnALMspZo",
+    "createSig": "5d4cwaD4Kehathob9xhVao3yfzfrTyj8DeNbPxkRfigQj2QZ5ER7SgTZJAbUdeSp9YMQ7iiNnNv6f9Lo7RFdCELp",
+    "buySig": "5t9kYLYskiDBWBvGrc5EJHoN8cVw6mPAEaAuWD2wx6Zqf4ykBYceDU8mivRurNsGLxt2FZfC7Yj2P5whfh4pxwJq"
+  },
+  {
+    "wallet": 5,
+    "name": "SeedGuard",
+    "symbol": "SEEDG",
+    "desc": "Seed Vault security agent. Monitors wallet activity, flags suspicious transactions, and enforces spending policies on-device.",
+    "mint": "7gA9Y4LLen4tkS2pJ87iJbSiiGdhBWdJ7oiaqvDXzNrj",
+    "createSig": "4Gv4hpKcsD5fWcN5q5zYR8Tda9kDF8JXr2rWnRhB7id2DAvoCzzs8puPewXQiEsemYWZLY1gPoUTMpwWZuRfoqWa",
+    "buySig": "2RcvtNGnwFauP1eTyjqabrx9rmtgF7m9peSWmebjk5dGtddDc7oL12qBeoVGCvR53KQAddMWomQTcaMtfPigCWat"
+  },
+  {
+    "wallet": 6,
+    "name": "SkillNet",
+    "symbol": "SKNET",
+    "desc": "Modular AI skill marketplace for mobile agents. 42+ composable skills from DeFi to social to analytics.",
+    "mint": "Cmtwzo8StFjdGKBJdRAMZmXpRgT1bcw3ddBmrY1m4qPf",
+    "createSig": "3tRDvzMNTaLXqRWNRxGFtXjiPA7Z9GA2yk7muwV5qWjK4VcbdYUeBcCemTNEThZH3Zkqzji4RQjNXYcNthAH9WRh",
+    "buySig": "3hiYiCrVLZ74shtH2tH7PtJQcnAXSTuyER39AHcwtZ1dKh1c8VfibNAN9dD7AAkxSSr8tbiNr8c4U4RAGgmTmTmi"
+  },
+  {
+    "wallet": 7,
+    "name": "MobileDAO",
+    "symbol": "MDAO",
+    "desc": "Governance agent for mobile-native DAOs. Vote, propose, and delegate from your Seeker phone with biometric auth.",
+    "mint": "6SRkBeUycHSevk1t4dnjotQKjNubFWMAd5PUMuTY2P52",
+    "createSig": "3Nnh2NKWF86ay2YpdfmHD3m6UU2o5WU5FpgQAt1eHH5GMJUbLKhJVgHcVEAgx5P5sYhW1nbYFWL8cxB4AQpjfFgH",
+    "buySig": "UJBQ9jd33xFRpTq5rPC6FHmnethP8MJA6gYWSjzdB6dxwknTEcuDn266ZCRY3zP4wBjsxNKqgbRwytmUfr3aHuL"
+  },
+  {
+    "wallet": 8,
+    "name": "TeleRelay",
+    "symbol": "TRELAY",
+    "desc": "Telegram relay agent bridging mobile AI to messaging. Natural language commands for swaps, transfers, and monitoring.",
+    "mint": "515ixhvvQKHQ5kgni4BaqcAfff75hJzTDxXA78tPxsaU",
+    "createSig": "FQ69aAD5c58V3wdDsHGMVwg2RS3km8mLshX4yvB8jfWV62rVwGyjAYuWKTq1bB527sUvZZ6ihY3x6edb58KYeBs",
+    "buySig": "BWBxCpEUBqAUWkns7rJqQv1tZm9wC5tWcDrLTwoWZPTXWzSfeCT6vG5fvn99xUfpfbPV1UgpoYsNVWjV81wwRAL"
+  },
+  {
+    "wallet": 9,
+    "name": "ColdSign",
+    "symbol": "CSIGN",
+    "desc": "Cold signing protocol for mobile transactions. Hardware isolation meets instant execution on Solana Seeker.",
+    "mint": "B9b1c6GrD6WqqFVxuxpcdXAd46hPqLtRBhS15uQh35Qu",
+    "createSig": "5nWLD2yNgvw8M1K9yemtELDKrTDYqYmiY8EYjo1iKRaZ7mTfNCqTUf6kmVg9QiEEUvf2ymwBdg8W7r2JVrANTdMt",
+    "buySig": "4X53PqryBBTnBrq5e76hAAJUgwDMeJDwyck5Pphc1SxDRPMza1nhs6dQHPz797QnDp22T11iEZgJP8APH4VDWag4"
+  },
+  {
+    "wallet": 10,
+    "name": "SwarmNode",
+    "symbol": "SWARM",
+    "desc": "Distributed AI swarm node running on Seeker hardware. Coordinated multi-agent intelligence across mobile devices.",
+    "mint": "6fasJBW6Jimf3hABqNBVKFJeiySXtwocD21topX5Hvwq",
+    "createSig": "5igkhc1PMiRyUzNrLU1YNdw3yM68fwW44GqGVtHJZu7RDw2xj7r5VZn19j4Ab1MpfZadasyieYFcJ6eYLWwZqftd",
+    "buySig": "2EZ3yok3noz81ZzWN9R1inkn11Eq9Na4WUEbVfKuWF4aG5azAVrUCfpsknQQ5QiDHoa7vPWUzzW1gpxPCi4WbeYF"
+  }
+]
