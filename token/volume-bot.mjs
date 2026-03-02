@@ -1,0 +1,170 @@
+import { Connection, Keypair, VersionedTransaction, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import fs from "fs";
+import path from "path";
+
+// === CONFIG ===
+const RPC_URL = "https://api.mainnet-beta.solana.com";
+const FLEET_DIR = "/Volumes/Virtual Server/configs/dotfiles/.solana-keys/fleet";
+const MINT = process.env.MINT || "H8oBZ3Fa6WJjpxeEwCr4gRP3SF96B1s3b49knipohRqt"; // $SEEK default
+const CYCLE_AMOUNT_SOL = parseFloat(process.env.AMOUNT || "0.05"); // SOL per cycle per wallet
+const MIN_INTERVAL_S = parseInt(process.env.MIN_INTERVAL || "30");
+const MAX_INTERVAL_S = parseInt(process.env.MAX_INTERVAL || "120");
+const SLIPPAGE = parseInt(process.env.SLIPPAGE || "25");
+const MAX_CYCLES = parseInt(process.env.MAX_CYCLES || "0"); // 0 = infinite
+
+const conn = new Connection(RPC_URL, "confirmed");
+let cycleCount = 0;
+let totalVolume = 0;
+
+function loadFleet() {
+  const wallets = [];
+  for (let i = 1; i <= 10; i++) {
+    const fp = path.join(FLEET_DIR, `wallet-${i}.json`);
+    if (fs.existsSync(fp)) {
+      const secret = JSON.parse(fs.readFileSync(fp, "utf8"));
+      wallets.push({ id: i, keypair: Keypair.fromSecretKey(new Uint8Array(secret)) });
+    }
+  }
+  return wallets;
+}
+
+function randomInterval() {
+  return (MIN_INTERVAL_S + Math.random() * (MAX_INTERVAL_S - MIN_INTERVAL_S)) * 1000;
+}
+
+function randomWallet(fleet) {
+  return fleet[Math.floor(Math.random() * fleet.length)];
+}
+
+async function sellFromWallet(w) {
+  const resp = await fetch("https://pumpportal.fun/api/trade-local", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      publicKey: w.keypair.publicKey.toBase58(),
+      action: "sell",
+      mint: MINT,
+      denominatedInSol: "false",
+      amount: "100%",
+      slippage: SLIPPAGE,
+      priorityFee: 0.0005,
+      pool: "pump",
+    }),
+  });
+  if (resp.status !== 200) return null;
+  const tx = VersionedTransaction.deserialize(new Uint8Array(await resp.arrayBuffer()));
+  tx.sign([w.keypair]);
+  return conn.sendRawTransaction(tx.serialize(), { skipPreflight: true, maxRetries: 2 });
+}
+
+async function buyFromWallet(w, amount) {
+  const resp = await fetch("https://pumpportal.fun/api/trade-local", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      publicKey: w.keypair.publicKey.toBase58(),
+      action: "buy",
+      mint: MINT,
+      denominatedInSol: "true",
+      amount,
+      slippage: SLIPPAGE,
+      priorityFee: 0.0005,
+      pool: "pump",
+    }),
+  });
+  if (resp.status !== 200) return null;
+  const tx = VersionedTransaction.deserialize(new Uint8Array(await resp.arrayBuffer()));
+  tx.sign([w.keypair]);
+  return conn.sendRawTransaction(tx.serialize(), { skipPreflight: true, maxRetries: 2 });
+}
+
+async function runCycle(fleet) {
+  cycleCount++;
+  const w = randomWallet(fleet);
+  const now = new Date().toLocaleTimeString();
+
+  // Randomly choose: sell-then-buy, buy-then-sell, or just buy
+  const action = Math.random();
+
+  try {
+    if (action < 0.4) {
+      // Sell then rebuy (creates 2 txs of volume)
+      console.log(`[${now}] Cycle #${cycleCount} wallet-${w.id}: SELL → BUY`);
+      const sellSig = await sellFromWallet(w);
+      if (sellSig) {
+        console.log(`  Sold: ${sellSig.slice(0, 20)}...`);
+        await new Promise(r => setTimeout(r, 3000));
+      }
+      const buySig = await buyFromWallet(w, CYCLE_AMOUNT_SOL);
+      if (buySig) {
+        console.log(`  Bought ${CYCLE_AMOUNT_SOL} SOL: ${buySig.slice(0, 20)}...`);
+        totalVolume += CYCLE_AMOUNT_SOL * 2;
+      }
+    } else if (action < 0.7) {
+      // Just buy (accumulate)
+      console.log(`[${now}] Cycle #${cycleCount} wallet-${w.id}: BUY`);
+      const bal = await conn.getBalance(w.keypair.publicKey);
+      if (bal / LAMPORTS_PER_SOL < CYCLE_AMOUNT_SOL + 0.005) {
+        console.log(`  Skip — low balance (${(bal / LAMPORTS_PER_SOL).toFixed(4)} SOL)`);
+        return;
+      }
+      const sig = await buyFromWallet(w, CYCLE_AMOUNT_SOL);
+      if (sig) {
+        console.log(`  Bought: ${sig.slice(0, 20)}...`);
+        totalVolume += CYCLE_AMOUNT_SOL;
+      }
+    } else {
+      // Buy from one, sell from another (cross-wallet)
+      const w2 = randomWallet(fleet.filter(x => x.id !== w.id));
+      console.log(`[${now}] Cycle #${cycleCount} wallet-${w.id} BUY + wallet-${w2.id} SELL`);
+      const [buySig, sellSig] = await Promise.all([
+        buyFromWallet(w, CYCLE_AMOUNT_SOL).catch(() => null),
+        sellFromWallet(w2).catch(() => null),
+      ]);
+      if (buySig) console.log(`  wallet-${w.id} bought: ${buySig.slice(0, 20)}...`);
+      if (sellSig) console.log(`  wallet-${w2.id} sold: ${sellSig.slice(0, 20)}...`);
+      totalVolume += CYCLE_AMOUNT_SOL * 2;
+    }
+  } catch (e) {
+    console.log(`  Error: ${e.message.slice(0, 60)}`);
+  }
+
+  console.log(`  Total volume generated: ${totalVolume.toFixed(4)} SOL\n`);
+}
+
+async function main() {
+  console.log("=== $SEEK Volume Bot ===\n");
+  console.log("Config:");
+  console.log(`  Token: ${MINT.slice(0, 8)}...`);
+  console.log(`  Amount per cycle: ${CYCLE_AMOUNT_SOL} SOL`);
+  console.log(`  Interval: ${MIN_INTERVAL_S}-${MAX_INTERVAL_S}s (randomized)`);
+  console.log(`  Slippage: ${SLIPPAGE}%`);
+  console.log(`  Max cycles: ${MAX_CYCLES || "unlimited"}`);
+
+  const fleet = loadFleet();
+  console.log(`  Fleet: ${fleet.length} wallets\n`);
+
+  // Check fleet has tokens
+  let readyCount = 0;
+  for (const w of fleet) {
+    const bal = await conn.getBalance(w.keypair.publicKey);
+    if (bal / LAMPORTS_PER_SOL >= CYCLE_AMOUNT_SOL + 0.003) readyCount++;
+  }
+  console.log(`${readyCount}/${fleet.length} wallets have enough SOL\n`);
+  console.log("Starting volume cycles...\n");
+
+  while (true) {
+    await runCycle(fleet);
+
+    if (MAX_CYCLES > 0 && cycleCount >= MAX_CYCLES) {
+      console.log(`\nReached ${MAX_CYCLES} cycles. Stopping.`);
+      break;
+    }
+
+    const delay = randomInterval();
+    console.log(`  Next cycle in ${(delay / 1000).toFixed(0)}s...\n`);
+    await new Promise(r => setTimeout(r, delay));
+  }
+}
+
+main().catch(e => { console.error("Fatal:", e.message); process.exit(1); });
