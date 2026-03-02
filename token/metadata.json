@@ -1,0 +1,11 @@
+{
+  "name": "OpenSeeker",
+  "symbol": "SEEK",
+  "description": "The AI Agent Layer for Solana Seeker. Autonomous AI agent running natively on the Solana Seeker phone with Seed Vault wallet access, Jupiter swaps, Telegram relay, cold signing security, and 42+ modular skills. Built by Purple Squirrel Media.",
+  "image": "logo.png",
+  "website": "https://openseeker.pages.dev",
+  "twitter": "https://x.com/squirrel_eth",
+  "telegram": "",
+  "showName": true,
+  "createdOn": "https://pump.fun"
+}
