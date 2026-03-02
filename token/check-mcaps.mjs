@@ -3,12 +3,12 @@ import fs from "fs";
 const results = JSON.parse(fs.readFileSync("mass-launch-results.json", "utf8"));
 const tokens = results.filter(r => r.mint);
 
-let solPrice = 140;
+let solPrice = 80;
 try {
-  const solResp = await fetch("https://api.jup.ag/price/v2?ids=So11111111111111111111111111111111111111112");
+  const solResp = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd");
   const solData = await solResp.json();
-  solPrice = parseFloat(solData?.data?.["So11111111111111111111111111111111111111112"]?.price || "140");
-} catch(e) { console.log("Jupiter price API error, using $140 default"); }
+  solPrice = parseFloat(solData?.solana?.usd || "80");
+} catch(e) { console.log("CoinGecko price API error, using $80 default"); }
 console.log("SOL price: $" + solPrice.toFixed(2) + "\n");
 
 for (const t of tokens) {

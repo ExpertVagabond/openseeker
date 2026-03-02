@@ -51,7 +51,7 @@ async function main() {
 
   // Step 2: Create token (no dev buy - separate step)
   console.log("\n[2/4] Creating token on pump.fun...");
-  const createResp = await fetch("https://pumpportal.fun/api/trade-local", {
+  const createResp = await fetch("https://pumpdev.io/api/trade-local", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -107,7 +107,7 @@ async function main() {
   // Small delay to let the token propagate
   await new Promise(r => setTimeout(r, 3000));
 
-  const buyResp = await fetch("https://pumpportal.fun/api/trade-local", {
+  const buyResp = await fetch("https://pumpdev.io/api/trade-local", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
