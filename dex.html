@@ -118,6 +118,29 @@ nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 /* Updated timestamp */
 .updated{text-align:center;font-size:.7rem;color:var(--text-dim);padding:12px 0}
 
+/* Chart panel */
+.chart-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:16px}
+.chart-card-header{padding:12px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.chart-card-header h2{font-size:.9rem;font-weight:600;color:#fff}
+.chart-card-header a{font-size:.7rem;color:var(--text-muted)}
+.chart-frame{width:100%;height:300px;border:none;background:var(--bg)}
+
+/* Token detail row */
+.token-detail{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:16px;display:none}
+.token-detail.show{display:block}
+.token-detail-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.token-detail-header img{width:48px;height:48px;border-radius:12px}
+.token-detail-header h3{font-size:1.1rem;font-weight:700;color:#fff}
+.token-detail-header .symbol{font-size:.8rem;color:var(--red);font-family:var(--mono)}
+.token-detail p{font-size:.85rem;color:var(--text-muted);line-height:1.6;margin-bottom:12px}
+.token-detail-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px}
+.token-detail-stats .stat{background:var(--bg-card-hover);padding:12px;text-align:center}
+.token-detail-stats .stat-val{font-size:.9rem;font-weight:700;color:#fff;font-family:var(--mono)}
+.token-detail-stats .stat-label{font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.token-detail-links{display:flex;gap:8px;flex-wrap:wrap}
+.token-detail-links a{font-size:.75rem;color:var(--text-muted);padding:5px 12px;border-radius:6px;border:1px solid var(--border);transition:all .15s}
+.token-detail-links a:hover{color:#fff;border-color:var(--red)}
+
 /* Footer */
 footer{margin-top:auto;border-top:1px solid var(--border);padding:40px 0;text-align:center}
 .footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
@@ -214,6 +237,18 @@ footer{margin-top:auto;border-top:1px solid var(--border);padding:40px 0;text-al
       <div class="fallback-links" id="fallback-links"></div>
       <div class="swap-links" id="swap-links"></div>
     </div>
+
+    <!-- Chart -->
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <h2>Chart</h2>
+        <a id="chart-link" href="#" target="_blank" rel="noopener">Open in DexScreener</a>
+      </div>
+      <iframe class="chart-frame" id="chart-frame" src="" title="Token Chart"></iframe>
+    </div>
+
+    <!-- Token Detail -->
+    <div class="token-detail" id="token-detail"></div>
   </div>
 
 </div>
@@ -239,18 +274,18 @@ footer{margin-top:auto;border-top:1px solid var(--border);padding:40px 0;text-al
 // === TOKEN REGISTRY ===
 const SOL_MINT = 'So11111111111111111111111111111111111111112';
 const FLEET_TOKENS = [
-  { symbol: 'SEEKBOT', name: 'SeekBot', mint: '9T95V7S1y7L8LLJEFqn7UdcmjY71Q6VMZita1t8vJbJ1', image: 'assets/seekbot.png', desc: 'Autonomous trading bot', page: 'seekbot.html' },
-  { symbol: 'AVAULT', name: 'AgentVault', mint: 'APXYEg1wQheuz4C3dvczKGzYmVMgP5qvjbzmfqLrtRJ2', image: 'assets/agentvault.png', desc: 'Secure AI vault', page: 'avault.html' },
-  { symbol: 'NSWAP', name: 'NeuralSwap', mint: '7PV9EpZXivde9XckQoF1jYGAPSmYUfwJ1iBRqGwKKCJi', image: 'assets/neuralswap.png', desc: 'Neural swap optimizer', page: 'nswap.html' },
-  { symbol: 'PCHAIN', name: 'PhoneChain', mint: 'D8u7g47FCPtMQbi9q1jds77vbvwcdvM7pub24NjbNu2v', image: 'assets/phonechain.png', desc: 'Mobile blockchain node', page: 'pchain.html' },
-  { symbol: 'SEEDG', name: 'SeedGuard', mint: '8k51Q6gvA8nUoTpfpBfPkcvH613QBroSbqrjd3ixqHDR', image: 'assets/seedguard.png', desc: 'Seed Vault security', page: 'seedg.html' },
-  { symbol: 'SKNET', name: 'SkillNet', mint: 'FYVK2YQrXT47sUqu2ynebPz1tNXyugw5DvqyHXB8haau', image: 'assets/skillnet.png', desc: 'AI skill marketplace', page: 'sknet.html' },
-  { symbol: 'MDAO', name: 'MobileDAO', mint: 'GFgbDMJmMmrKSNkmbgHAVEqUNGCMMaeheGwyDF1tVwhU', image: 'assets/mobiledao.png', desc: 'Mobile governance', page: 'mdao.html' },
-  { symbol: 'TRELAY', name: 'TeleRelay', mint: 'AemCtvSpewGhcyFgoEY6RVCzVPibuLNnJtGrVW9Sq3XW', image: 'assets/telerelay.png', desc: 'Telegram relay agent', page: 'trelay.html' },
-  { symbol: 'CSIGN', name: 'ColdSign', mint: 'kynRpxt3ASUkaXSBoqHd9v6dbtm4gMbEqmsDD6Dfunx', image: 'assets/coldsign.png', desc: 'Cold signing protocol', page: 'csign.html' },
-  { symbol: 'SWARM', name: 'SwarmNode', mint: 'F3kXwe6eF8hSiuqWtNzAiv668QWAHVem7FvZK3jWahdN', image: 'assets/swarmnode.png', desc: 'Distributed AI swarm', page: 'swarm.html' },
-  { symbol: 'PAW', name: 'OpenPaw', mint: 'DbukKVm7tdNaeaqjm8VD14TH4XMFEZ4xnjbXJ4SyEeLc', image: 'https://pump.fun/image/DbukKVm7tdNaeaqjm8VD14TH4XMFEZ4xnjbXJ4SyEeLc', desc: 'Security intelligence', page: null },
-  { symbol: 'FRANC', name: 'FrancPaw', mint: 'BJ8MySahjvB3XFrKWxhFR4wsnjpgqY4gGRmU9wXHLCvu', image: 'https://pump.fun/image/BJ8MySahjvB3XFrKWxhFR4wsnjpgqY4gGRmU9wXHLCvu', desc: 'Behavioral intelligence', page: null },
+  { symbol: 'SEEKBOT', name: 'SeekBot', mint: '9T95V7S1y7L8LLJEFqn7UdcmjY71Q6VMZita1t8vJbJ1', image: 'assets/seekbot.png', desc: 'Autonomous trading bot for Solana Seeker. Executes Jupiter swaps, monitors DeFi positions, and manages portfolio from your pocket.', role: 'DeFi Execution', page: 'seekbot.html' },
+  { symbol: 'AVAULT', name: 'AgentVault', mint: 'APXYEg1wQheuz4C3dvczKGzYmVMgP5qvjbzmfqLrtRJ2', image: 'assets/agentvault.png', desc: 'Hardware-backed key storage for the agent fleet. Uses Seed Vault for air-gapped signing. Every agent operation requiring a signature routes through AgentVault.', role: 'Key Security', page: 'avault.html' },
+  { symbol: 'NSWAP', name: 'NeuralSwap', mint: '7PV9EpZXivde9XckQoF1jYGAPSmYUfwJ1iBRqGwKKCJi', image: 'assets/neuralswap.png', desc: 'On-device ML inference for optimal swap routes across Solana DEXs. Analyzes liquidity depth, slippage curves, and gas costs in real-time.', role: 'Route Intelligence', page: 'nswap.html' },
+  { symbol: 'PCHAIN', name: 'PhoneChain', mint: 'D8u7g47FCPtMQbi9q1jds77vbvwcdvM7pub24NjbNu2v', image: 'assets/phonechain.png', desc: 'Lightweight blockchain node on mobile. Transaction relay, validation, and consensus participation from a Solana Seeker device.', role: 'Infrastructure', page: 'pchain.html' },
+  { symbol: 'SEEDG', name: 'SeedGuard', mint: '8k51Q6gvA8nUoTpfpBfPkcvH613QBroSbqrjd3ixqHDR', image: 'assets/seedguard.png', desc: 'Monitors wallet activity 24/7, flags suspicious transactions, and enforces spending policies. Built on the Seeker Seed Vault for hardware-level protection.', role: 'Wallet Protection', page: 'seedg.html' },
+  { symbol: 'SKNET', name: 'SkillNet', mint: 'FYVK2YQrXT47sUqu2ynebPz1tNXyugw5DvqyHXB8haau', image: 'assets/skillnet.png', desc: 'App store for AI agent capabilities. 42+ composable skills spanning DeFi, social media, analytics, and notifications.', role: 'Agent Platform', page: 'sknet.html' },
+  { symbol: 'MDAO', name: 'MobileDAO', mint: 'GFgbDMJmMmrKSNkmbgHAVEqUNGCMMaeheGwyDF1tVwhU', image: 'assets/mobiledao.png', desc: 'Governance from your pocket. Vote on proposals, create new ones, and delegate voting power with biometric authentication on Seeker.', role: 'DAO Operations', page: 'mdao.html' },
+  { symbol: 'TRELAY', name: 'TeleRelay', mint: 'AemCtvSpewGhcyFgoEY6RVCzVPibuLNnJtGrVW9Sq3XW', image: 'assets/telerelay.png', desc: 'Bridges Telegram and Solana DeFi. Send natural language commands like "swap 1 SOL to BONK" and TeleRelay handles routing and execution on Seeker.', role: 'Messaging Bridge', page: 'trelay.html' },
+  { symbol: 'CSIGN', name: 'ColdSign', mint: 'kynRpxt3ASUkaXSBoqHd9v6dbtm4gMbEqmsDD6Dfunx', image: 'assets/coldsign.png', desc: 'Air-gapped transaction signing for mobile. Hardware isolation meets instant execution. Sign in a secure enclave without sacrificing DeFi speed.', role: 'Transaction Security', page: 'csign.html' },
+  { symbol: 'SWARM', name: 'SwarmNode', mint: 'F3kXwe6eF8hSiuqWtNzAiv668QWAHVem7FvZK3jWahdN', image: 'assets/swarmnode.png', desc: 'Decentralized AI swarm node. Coordinated multi-agent intelligence across mobile devices. Your phone contributes to and benefits from collective AI reasoning.', role: 'Multi-Agent Intelligence', page: 'swarm.html' },
+  { symbol: 'PAW', name: 'OpenPaw', mint: 'DbukKVm7tdNaeaqjm8VD14TH4XMFEZ4xnjbXJ4SyEeLc', image: 'https://pump.fun/image/DbukKVm7tdNaeaqjm8VD14TH4XMFEZ4xnjbXJ4SyEeLc', desc: 'Security intelligence research layer. Solana smart contract audit patterns, threat intelligence, and vulnerability analysis. Graduated from bonding curve.', role: 'Security Research', page: null },
+  { symbol: 'FRANC', name: 'FrancPaw', mint: 'BJ8MySahjvB3XFrKWxhFR4wsnjpgqY4gGRmU9wXHLCvu', image: 'https://pump.fun/image/BJ8MySahjvB3XFrKWxhFR4wsnjpgqY4gGRmU9wXHLCvu', desc: 'Behavioral intelligence research layer. Longevity optimization, behavioral psychology, agent design patterns. Token-gated MCP server access.', role: 'Behavioral Research', page: null },
 ];
 
 // === STATE ===
@@ -384,8 +419,10 @@ function selectToken(mint) {
     row.classList.toggle('selected', row.dataset.mint === mint);
   });
 
-  // Update external links
+  // Update panels
   updateSwapLinks(token);
+  updateChart(token);
+  updateDetail(token);
 
   // Reinitialize Jupiter
   initJupiter(mint);
@@ -404,6 +441,41 @@ function updateSwapLinks(token) {
     <a class="swap-ext" href="https://jup.ag/swap/SOL-${token.mint}" target="_blank" rel="noopener">Jupiter</a>
     <a class="swap-ext" href="https://solscan.io/token/${token.mint}" target="_blank" rel="noopener">Solscan</a>
     ${token.page ? `<a class="swap-ext" href="${token.page}">Agent Page</a>` : ''}
+  `;
+}
+
+function updateChart(token) {
+  const frame = document.getElementById('chart-frame');
+  frame.src = `https://dexscreener.com/solana/${token.mint}?embed=1&theme=dark&info=0`;
+  const link = document.getElementById('chart-link');
+  link.href = `https://dexscreener.com/solana/${token.mint}`;
+}
+
+function updateDetail(token) {
+  const el = document.getElementById('token-detail');
+  const price = prices[token.mint];
+  const mcap = mcaps[token.mint];
+  el.classList.add('show');
+  el.innerHTML = `
+    <div class="token-detail-header">
+      <img src="${token.image}" alt="${token.name}" width="48" height="48" onerror="this.src='assets/logo.png'">
+      <div>
+        <h3>${token.name}</h3>
+        <span class="symbol">$${token.symbol} &middot; ${token.role || 'Agent'}</span>
+      </div>
+    </div>
+    <div class="token-detail-stats">
+      <div class="stat"><div class="stat-val">${price ? '$' + formatPrice(price) : '---'}</div><div class="stat-label">Price</div></div>
+      <div class="stat"><div class="stat-val">${mcap ? '$' + formatNum(mcap) : '---'}</div><div class="stat-label">Market Cap</div></div>
+      <div class="stat"><div class="stat-val">Seeker</div><div class="stat-label">Platform</div></div>
+    </div>
+    <p>${token.desc}</p>
+    <div class="token-detail-links">
+      <a href="https://pump.fun/coin/${token.mint}" target="_blank" rel="noopener">pump.fun</a>
+      <a href="https://dexscreener.com/solana/${token.mint}" target="_blank" rel="noopener">Chart</a>
+      <a href="https://solscan.io/token/${token.mint}" target="_blank" rel="noopener">Solscan</a>
+      ${token.page ? `<a href="${token.page}">Agent Page</a>` : ''}
+    </div>
   `;
 }
 
@@ -464,7 +536,10 @@ function handleUrlParams() {
 // === INIT ===
 handleUrlParams();
 renderTokenList();
-updateSwapLinks(FLEET_TOKENS.find(t => t.mint === selectedMint));
+const initialToken = FLEET_TOKENS.find(t => t.mint === selectedMint);
+updateSwapLinks(initialToken);
+updateChart(initialToken);
+updateDetail(initialToken);
 
 // Start data fetching
 fetchPrices();
