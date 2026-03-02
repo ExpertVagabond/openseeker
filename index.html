@@ -171,7 +171,7 @@ footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
 
 /* Fleet grid */
 .fleet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.fleet-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all .25s}
+.fleet-card{cursor:pointer;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all .25s}
 .fleet-card:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:0 8px 32px rgba(220,38,38,.1)}
 .fleet-img{width:100%;aspect-ratio:1;object-fit:cover;border-bottom:1px solid var(--border)}
 .fleet-body{padding:20px}
@@ -258,9 +258,9 @@ footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
   <div class="fleet-grid">
 
     <div class="fleet-card">
-      <img class="fleet-img" src="assets/seekbot.png" alt="SeekBot" loading="lazy">
+      <a href="seekbot.html" style="display:block"><img class="fleet-img" src="assets/seekbot.png" alt="SeekBot" loading="lazy"></a>
       <div class="fleet-body">
-        <div class="fleet-header"><span class="fleet-name">SeekBot</span><span class="fleet-symbol">$SEEKBOT</span></div>
+        <div class="fleet-header"><a href="seekbot.html" style="color:inherit;text-decoration:none"><span class="fleet-name">SeekBot</span></a><span class="fleet-symbol">$SEEKBOT</span></div>
         <p class="fleet-desc">Autonomous trading bot for Solana Seeker. Executes Jupiter swaps, monitors DeFi positions, and manages portfolio from your pocket.</p>
         <a class="fleet-link" href="https://pump.fun/coin/9T95V7S1y7L8LLJEFqn7UdcmjY71Q6VMZita1t8vJbJ1" target="_blank" rel="noopener">Trade on pump.fun &rarr;</a>
         <div class="fleet-mint">9T95V7S1y7L8LLJEFqn7UdcmjY71Q6VMZita1t8vJbJ1</div>
@@ -268,9 +268,9 @@ footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
     </div>
 
     <div class="fleet-card">
-      <img class="fleet-img" src="assets/agentvault.png" alt="AgentVault" loading="lazy">
+      <a href="avault.html" style="display:block"><img class="fleet-img" src="assets/agentvault.png" alt="AgentVault" loading="lazy"></a>
       <div class="fleet-body">
-        <div class="fleet-header"><span class="fleet-name">AgentVault</span><span class="fleet-symbol">$AVAULT</span></div>
+        <div class="fleet-header"><a href="avault.html" style="color:inherit;text-decoration:none"><span class="fleet-name">AgentVault</span></a><span class="fleet-symbol">$AVAULT</span></div>
         <p class="fleet-desc">Secure AI vault agent with hardware-backed key storage. Air-gapped transaction signing meets mobile convenience.</p>
         <a class="fleet-link" href="https://pump.fun/coin/APXYEg1wQheuz4C3dvczKGzYmVMgP5qvjbzmfqLrtRJ2" target="_blank" rel="noopener">Trade on pump.fun &rarr;</a>
         <div class="fleet-mint">APXYEg1wQheuz4C3dvczKGzYmVMgP5qvjbzmfqLrtRJ2</div>
@@ -278,9 +278,9 @@ footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
     </div>
 
     <div class="fleet-card">
-      <img class="fleet-img" src="assets/neuralswap.png" alt="NeuralSwap" loading="lazy">
+      <a href="nswap.html" style="display:block"><img class="fleet-img" src="assets/neuralswap.png" alt="NeuralSwap" loading="lazy"></a>
       <div class="fleet-body">
-        <div class="fleet-header"><span class="fleet-name">NeuralSwap</span><span class="fleet-symbol">$NSWAP</span></div>
+        <div class="fleet-header"><a href="nswap.html" style="color:inherit;text-decoration:none"><span class="fleet-name">NeuralSwap</span></a><span class="fleet-symbol">$NSWAP</span></div>
         <p class="fleet-desc">Neural network powered swap optimizer. Finds best routes across DEXs using on-device ML inference on Seeker hardware.</p>
         <a class="fleet-link" href="https://pump.fun/coin/7PV9EpZXivde9XckQoF1jYGAPSmYUfwJ1iBRqGwKKCJi" target="_blank" rel="noopener">Trade on pump.fun &rarr;</a>
         <div class="fleet-mint">7PV9EpZXivde9XckQoF1jYGAPSmYUfwJ1iBRqGwKKCJi</div>
@@ -288,9 +288,9 @@ footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
     </div>
 
     <div class="fleet-card">
-      <img class="fleet-img" src="assets/phonechain.png" alt="PhoneChain" loading="lazy">
+      <a href="pchain.html" style="display:block"><img class="fleet-img" src="assets/phonechain.png" alt="PhoneChain" loading="lazy"></a>
       <div class="fleet-body">
-        <div class="fleet-header"><span class="fleet-name">PhoneChain</span><span class="fleet-symbol">$PCHAIN</span></div>
+        <div class="fleet-header"><a href="pchain.html" style="color:inherit;text-decoration:none"><span class="fleet-name">PhoneChain</span></a><span class="fleet-symbol">$PCHAIN</span></div>
         <p class="fleet-desc">Mobile-first blockchain agent. Full node validation, transaction relay, and consensus participation from Solana Seeker.</p>
         <a class="fleet-link" href="https://pump.fun/coin/D8u7g47FCPtMQbi9q1jds77vbvwcdvM7pub24NjbNu2v" target="_blank" rel="noopener">Trade on pump.fun &rarr;</a>
         <div class="fleet-mint">D8u7g47FCPtMQbi9q1jds77vbvwcdvM7pub24NjbNu2v</div>
@@ -298,9 +298,9 @@ footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
     </div>
 
     <div class="fleet-card">
-      <img class="fleet-img" src="assets/seedguard.png" alt="SeedGuard" loading="lazy">
+      <a href="seedg.html" style="display:block"><img class="fleet-img" src="assets/seedguard.png" alt="SeedGuard" loading="lazy"></a>
       <div class="fleet-body">
-        <div class="fleet-header"><span class="fleet-name">SeedGuard</span><span class="fleet-symbol">$SEEDG</span></div>
+        <div class="fleet-header"><a href="seedg.html" style="color:inherit;text-decoration:none"><span class="fleet-name">SeedGuard</span></a><span class="fleet-symbol">$SEEDG</span></div>
         <p class="fleet-desc">Seed Vault security agent. Monitors wallet activity, flags suspicious transactions, and enforces spending policies on-device.</p>
         <a class="fleet-link" href="https://pump.fun/coin/8k51Q6gvA8nUoTpfpBfPkcvH613QBroSbqrjd3ixqHDR" target="_blank" rel="noopener">Trade on pump.fun &rarr;</a>
         <div class="fleet-mint">8k51Q6gvA8nUoTpfpBfPkcvH613QBroSbqrjd3ixqHDR</div>
@@ -308,9 +308,9 @@ footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
     </div>
 
     <div class="fleet-card">
-      <img class="fleet-img" src="assets/skillnet.png" alt="SkillNet" loading="lazy">
+      <a href="sknet.html" style="display:block"><img class="fleet-img" src="assets/skillnet.png" alt="SkillNet" loading="lazy"></a>
       <div class="fleet-body">
-        <div class="fleet-header"><span class="fleet-name">SkillNet</span><span class="fleet-symbol">$SKNET</span></div>
+        <div class="fleet-header"><a href="sknet.html" style="color:inherit;text-decoration:none"><span class="fleet-name">SkillNet</span></a><span class="fleet-symbol">$SKNET</span></div>
         <p class="fleet-desc">Modular AI skill marketplace for mobile agents. 42+ composable skills from DeFi to social to analytics.</p>
         <a class="fleet-link" href="https://pump.fun/coin/FYVK2YQrXT47sUqu2ynebPz1tNXyugw5DvqyHXB8haau" target="_blank" rel="noopener">Trade on pump.fun &rarr;</a>
         <div class="fleet-mint">FYVK2YQrXT47sUqu2ynebPz1tNXyugw5DvqyHXB8haau</div>
@@ -318,9 +318,9 @@ footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
     </div>
 
     <div class="fleet-card">
-      <img class="fleet-img" src="assets/mobiledao.png" alt="MobileDAO" loading="lazy">
+      <a href="mdao.html" style="display:block"><img class="fleet-img" src="assets/mobiledao.png" alt="MobileDAO" loading="lazy"></a>
       <div class="fleet-body">
-        <div class="fleet-header"><span class="fleet-name">MobileDAO</span><span class="fleet-symbol">$MDAO</span></div>
+        <div class="fleet-header"><a href="mdao.html" style="color:inherit;text-decoration:none"><span class="fleet-name">MobileDAO</span></a><span class="fleet-symbol">$MDAO</span></div>
         <p class="fleet-desc">Governance agent for mobile-native DAOs. Vote, propose, and delegate from your Seeker phone with biometric auth.</p>
         <a class="fleet-link" href="https://pump.fun/coin/GFgbDMJmMmrKSNkmbgHAVEqUNGCMMaeheGwyDF1tVwhU" target="_blank" rel="noopener">Trade on pump.fun &rarr;</a>
         <div class="fleet-mint">GFgbDMJmMmrKSNkmbgHAVEqUNGCMMaeheGwyDF1tVwhU</div>
@@ -328,9 +328,9 @@ footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
     </div>
 
     <div class="fleet-card">
-      <img class="fleet-img" src="assets/telerelay.png" alt="TeleRelay" loading="lazy">
+      <a href="trelay.html" style="display:block"><img class="fleet-img" src="assets/telerelay.png" alt="TeleRelay" loading="lazy"></a>
       <div class="fleet-body">
-        <div class="fleet-header"><span class="fleet-name">TeleRelay</span><span class="fleet-symbol">$TRELAY</span></div>
+        <div class="fleet-header"><a href="trelay.html" style="color:inherit;text-decoration:none"><span class="fleet-name">TeleRelay</span></a><span class="fleet-symbol">$TRELAY</span></div>
         <p class="fleet-desc">Telegram relay agent bridging mobile AI to messaging. Natural language commands for swaps, transfers, and monitoring.</p>
         <a class="fleet-link" href="https://pump.fun/coin/AemCtvSpewGhcyFgoEY6RVCzVPibuLNnJtGrVW9Sq3XW" target="_blank" rel="noopener">Trade on pump.fun &rarr;</a>
         <div class="fleet-mint">AemCtvSpewGhcyFgoEY6RVCzVPibuLNnJtGrVW9Sq3XW</div>
@@ -338,9 +338,9 @@ footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
     </div>
 
     <div class="fleet-card">
-      <img class="fleet-img" src="assets/coldsign.png" alt="ColdSign" loading="lazy">
+      <a href="csign.html" style="display:block"><img class="fleet-img" src="assets/coldsign.png" alt="ColdSign" loading="lazy"></a>
       <div class="fleet-body">
-        <div class="fleet-header"><span class="fleet-name">ColdSign</span><span class="fleet-symbol">$CSIGN</span></div>
+        <div class="fleet-header"><a href="csign.html" style="color:inherit;text-decoration:none"><span class="fleet-name">ColdSign</span></a><span class="fleet-symbol">$CSIGN</span></div>
         <p class="fleet-desc">Cold signing protocol for mobile transactions. Hardware isolation meets instant execution on Solana Seeker.</p>
         <a class="fleet-link" href="https://pump.fun/coin/kynRpxt3ASUkaXSBoqHd9v6dbtm4gMbEqmsDD6Dfunx" target="_blank" rel="noopener">Trade on pump.fun &rarr;</a>
         <div class="fleet-mint">kynRpxt3ASUkaXSBoqHd9v6dbtm4gMbEqmsDD6Dfunx</div>
@@ -348,9 +348,9 @@ footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
     </div>
 
     <div class="fleet-card">
-      <img class="fleet-img" src="assets/swarmnode.png" alt="SwarmNode" loading="lazy">
+      <a href="swarm.html" style="display:block"><img class="fleet-img" src="assets/swarmnode.png" alt="SwarmNode" loading="lazy"></a>
       <div class="fleet-body">
-        <div class="fleet-header"><span class="fleet-name">SwarmNode</span><span class="fleet-symbol">$SWARM</span></div>
+        <div class="fleet-header"><a href="swarm.html" style="color:inherit;text-decoration:none"><span class="fleet-name">SwarmNode</span></a><span class="fleet-symbol">$SWARM</span></div>
         <p class="fleet-desc">Distributed AI swarm node running on Seeker hardware. Coordinated multi-agent intelligence across mobile devices.</p>
         <a class="fleet-link" href="https://pump.fun/coin/F3kXwe6eF8hSiuqWtNzAiv668QWAHVem7FvZK3jWahdN" target="_blank" rel="noopener">Trade on pump.fun &rarr;</a>
         <div class="fleet-mint">F3kXwe6eF8hSiuqWtNzAiv668QWAHVem7FvZK3jWahdN</div>
