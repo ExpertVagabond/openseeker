@@ -1,20 +1,30 @@
 import { Connection, Keypair, VersionedTransaction, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // === CONFIG ===
 const RPC_URL = "https://api.mainnet-beta.solana.com";
 const FLEET_DIR = "/Volumes/Virtual Server/configs/dotfiles/.solana-keys/fleet";
-const MINT = process.env.MINT || "H8oBZ3Fa6WJjpxeEwCr4gRP3SF96B1s3b49knipohRqt"; // $SEEK default
-const CYCLE_AMOUNT_SOL = parseFloat(process.env.AMOUNT || "0.05"); // SOL per cycle per wallet
-const MIN_INTERVAL_S = parseInt(process.env.MIN_INTERVAL || "30");
-const MAX_INTERVAL_S = parseInt(process.env.MAX_INTERVAL || "120");
+const CYCLE_AMOUNT_SOL = parseFloat(process.env.AMOUNT || "0.02"); // SOL per cycle
+const MIN_INTERVAL_S = parseInt(process.env.MIN_INTERVAL || "20");
+const MAX_INTERVAL_S = parseInt(process.env.MAX_INTERVAL || "60");
 const SLIPPAGE = parseInt(process.env.SLIPPAGE || "25");
 const MAX_CYCLES = parseInt(process.env.MAX_CYCLES || "0"); // 0 = infinite
 
 const conn = new Connection(RPC_URL, "confirmed");
 let cycleCount = 0;
 let totalVolume = 0;
+
+// Load all token mints from mass launch results
+const launchResults = JSON.parse(fs.readFileSync(path.join(__dirname, "mass-launch-results.json"), "utf8"));
+const TOKEN_MINTS = launchResults.filter(r => r.mint).map(r => ({ mint: r.mint, symbol: r.symbol, wallet: r.wallet }));
+
+function randomToken() {
+  return TOKEN_MINTS[Math.floor(Math.random() * TOKEN_MINTS.length)];
+}
 
 function loadFleet() {
   const wallets = [];
@@ -36,14 +46,14 @@ function randomWallet(fleet) {
   return fleet[Math.floor(Math.random() * fleet.length)];
 }
 
-async function sellFromWallet(w) {
+async function sellFromWallet(w, mint) {
   const resp = await fetch("https://pumpportal.fun/api/trade-local", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       publicKey: w.keypair.publicKey.toBase58(),
       action: "sell",
-      mint: MINT,
+      mint,
       denominatedInSol: "false",
       amount: "100%",
       slippage: SLIPPAGE,
@@ -57,14 +67,14 @@ async function sellFromWallet(w) {
   return conn.sendRawTransaction(tx.serialize(), { skipPreflight: true, maxRetries: 2 });
 }
 
-async function buyFromWallet(w, amount) {
+async function buyFromWallet(w, mint, amount) {
   const resp = await fetch("https://pumpportal.fun/api/trade-local", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       publicKey: w.keypair.publicKey.toBase58(),
       action: "buy",
-      mint: MINT,
+      mint,
       denominatedInSol: "true",
       amount,
       slippage: SLIPPAGE,
@@ -81,6 +91,7 @@ async function buyFromWallet(w, amount) {
 async function runCycle(fleet) {
   cycleCount++;
   const w = randomWallet(fleet);
+  const token = randomToken();
   const now = new Date().toLocaleTimeString();
 
   // Randomly choose: sell-then-buy, buy-then-sell, or just buy
@@ -89,37 +100,37 @@ async function runCycle(fleet) {
   try {
     if (action < 0.4) {
       // Sell then rebuy (creates 2 txs of volume)
-      console.log(`[${now}] Cycle #${cycleCount} wallet-${w.id}: SELL → BUY`);
-      const sellSig = await sellFromWallet(w);
+      console.log(`[${now}] Cycle #${cycleCount} wallet-${w.id} on $${token.symbol}: SELL → BUY`);
+      const sellSig = await sellFromWallet(w, token.mint);
       if (sellSig) {
         console.log(`  Sold: ${sellSig.slice(0, 20)}...`);
         await new Promise(r => setTimeout(r, 3000));
       }
-      const buySig = await buyFromWallet(w, CYCLE_AMOUNT_SOL);
+      const buySig = await buyFromWallet(w, token.mint, CYCLE_AMOUNT_SOL);
       if (buySig) {
         console.log(`  Bought ${CYCLE_AMOUNT_SOL} SOL: ${buySig.slice(0, 20)}...`);
         totalVolume += CYCLE_AMOUNT_SOL * 2;
       }
     } else if (action < 0.7) {
       // Just buy (accumulate)
-      console.log(`[${now}] Cycle #${cycleCount} wallet-${w.id}: BUY`);
+      console.log(`[${now}] Cycle #${cycleCount} wallet-${w.id} on $${token.symbol}: BUY`);
       const bal = await conn.getBalance(w.keypair.publicKey);
       if (bal / LAMPORTS_PER_SOL < CYCLE_AMOUNT_SOL + 0.005) {
         console.log(`  Skip — low balance (${(bal / LAMPORTS_PER_SOL).toFixed(4)} SOL)`);
         return;
       }
-      const sig = await buyFromWallet(w, CYCLE_AMOUNT_SOL);
+      const sig = await buyFromWallet(w, token.mint, CYCLE_AMOUNT_SOL);
       if (sig) {
         console.log(`  Bought: ${sig.slice(0, 20)}...`);
         totalVolume += CYCLE_AMOUNT_SOL;
       }
     } else {
-      // Buy from one, sell from another (cross-wallet)
+      // Buy from one wallet, sell from another (cross-wallet)
       const w2 = randomWallet(fleet.filter(x => x.id !== w.id));
-      console.log(`[${now}] Cycle #${cycleCount} wallet-${w.id} BUY + wallet-${w2.id} SELL`);
+      console.log(`[${now}] Cycle #${cycleCount} $${token.symbol}: wallet-${w.id} BUY + wallet-${w2.id} SELL`);
       const [buySig, sellSig] = await Promise.all([
-        buyFromWallet(w, CYCLE_AMOUNT_SOL).catch(() => null),
-        sellFromWallet(w2).catch(() => null),
+        buyFromWallet(w, token.mint, CYCLE_AMOUNT_SOL).catch(() => null),
+        sellFromWallet(w2, token.mint).catch(() => null),
       ]);
       if (buySig) console.log(`  wallet-${w.id} bought: ${buySig.slice(0, 20)}...`);
       if (sellSig) console.log(`  wallet-${w2.id} sold: ${sellSig.slice(0, 20)}...`);
@@ -133,9 +144,9 @@ async function runCycle(fleet) {
 }
 
 async function main() {
-  console.log("=== $SEEK Volume Bot ===\n");
+  console.log("=== Multi-Token Volume Bot ===\n");
   console.log("Config:");
-  console.log(`  Token: ${MINT.slice(0, 8)}...`);
+  console.log(`  Tokens: ${TOKEN_MINTS.map(t => "$" + t.symbol).join(", ")}`);
   console.log(`  Amount per cycle: ${CYCLE_AMOUNT_SOL} SOL`);
   console.log(`  Interval: ${MIN_INTERVAL_S}-${MAX_INTERVAL_S}s (randomized)`);
   console.log(`  Slippage: ${SLIPPAGE}%`);

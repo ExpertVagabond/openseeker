@@ -3,90 +3,100 @@
     "wallet": 1,
     "name": "SeekBot",
     "symbol": "SEEKBOT",
+    "image": "seekbot.png",
     "desc": "Autonomous trading bot for Solana Seeker. Executes Jupiter swaps, monitors DeFi positions, and manages portfolio from your pocket.",
-    "mint": "DydxLgFFvp6XzNDj62Q9MT8xzbdZi4XgFWVqwmftZJk",
-    "createSig": "n89bmt2HbyLhg9Asyp9pjV3nfEEdhwWcewu56tnDNUDk9s7QA8YHKafuw1ttYB4F7hCX68ekqo6WtePcxCK41ZC",
-    "buySig": "hzGknAmwBsYA4KPbD31ZsGkaX6P8FUTVgRMXT3WQ7PdZYvQUfgeevACVdpksizQeFabiPJq7GTGqnLk7wBTrsTE"
+    "mint": "9T95V7S1y7L8LLJEFqn7UdcmjY71Q6VMZita1t8vJbJ1",
+    "createSig": "5gwZZcpsqbYzH7TE24UikQ4YN3kY47yqpLTY3D2Fr2idtEgjHk3hPsW4N3TqoBeEPJTXY9kTrRezqvCcpRUuuW1s",
+    "buySig": "4etiGwKWm2XEHcRjNqXZNhBKg7NKGK4P9QTsEA57cQiH8kEysL8hnzx4f7j4GwbmAxVzNySPFFx5HRQvo91YNjXb"
   },
   {
     "wallet": 2,
     "name": "AgentVault",
     "symbol": "AVAULT",
+    "image": "agentvault.png",
     "desc": "Secure AI vault agent with hardware-backed key storage. Air-gapped transaction signing meets mobile convenience.",
-    "mint": "D1c9xLKjFVtKa8mr3b9JkyCJfqWr3xdm9k6VJb94whSA",
-    "createSig": "5msNZG36Ubgph2Wa8nnod9tGpNpJxZMTbHaTttJZCbuZZfvA2oLYX4SpnteSrFoaN2jCGTm5iCiuy8c4nUzHcw5x",
-    "buySig": "5uBmmRuvaiF3GGAh8ANK5yJcRFS6qsESsTe5MM6ZA2t6XA13urDz3CNUv4q9Sn22PVpnxyDAHS76hGmvGbG1xKGU"
+    "mint": "APXYEg1wQheuz4C3dvczKGzYmVMgP5qvjbzmfqLrtRJ2",
+    "createSig": "15eqcc3dT6d9o6wh1PsQmKBfZP8XTBiuqTzZWB3disVNKeymn35KRX7AbgzQLBJXNjfrcjHJ2sVHM1mirZRXsqp",
+    "buySig": "2svMLD53ceNoWQLczJhG2HzEQ3L7V48p4ykwoQ3Jc1qTXWkAaU7WuevMGToCj6SRwGLG2kxtqYj2uDh7RfffHXtU"
   },
   {
     "wallet": 3,
     "name": "NeuralSwap",
     "symbol": "NSWAP",
+    "image": "neuralswap.png",
     "desc": "Neural network powered swap optimizer. Finds best routes across DEXs using on-device ML inference on Seeker hardware.",
-    "mint": "FEaCiFSDqfCzrytTBq3Z4DscdJL2MhGqk5idR3B2JwHa",
-    "createSig": "P4s8Xu6SGbrcbHusuWV2XrRc8YtcTmM4JHDyADPGcDvQjtJMJKWWpwf8Gv9WpVENMVBARHSu1CwTva62j22ChED",
-    "buySig": "5BHRheJ4U7vNSmTvuiwtiyJbcfvyErYDoRAx5TggkBQ5jQyQ39XpaydZXkEHNqRdG1xrV7ukrXxkEo2XdibDihD5"
+    "mint": "7PV9EpZXivde9XckQoF1jYGAPSmYUfwJ1iBRqGwKKCJi",
+    "createSig": "qttv3GURNciuUvaVfXCCGHYyqZhDckZx7xD2mf9L4mn2ti3yj5SLuQ9umqm5NXkDaqjjPvaCUrsxa8JbeJhMUbE",
+    "buySig": "4iUvEbxsGv6tjXmDZsVpbEbz6rKCKVGM2zMK28zqAVfCZb9jkgLLCQq7MYjRxfeu9qPAhCkAK3iiJxXjzF6F2W4e"
   },
   {
     "wallet": 4,
     "name": "PhoneChain",
     "symbol": "PCHAIN",
+    "image": "phonechain.png",
     "desc": "Mobile-first blockchain agent. Full node validation, transaction relay, and consensus participation from Solana Seeker.",
-    "mint": "D8JZbDSXXjFxSPXvbziMZWQF8RMmzywnmvgRnALMspZo",
-    "createSig": "5d4cwaD4Kehathob9xhVao3yfzfrTyj8DeNbPxkRfigQj2QZ5ER7SgTZJAbUdeSp9YMQ7iiNnNv6f9Lo7RFdCELp",
-    "buySig": "5t9kYLYskiDBWBvGrc5EJHoN8cVw6mPAEaAuWD2wx6Zqf4ykBYceDU8mivRurNsGLxt2FZfC7Yj2P5whfh4pxwJq"
+    "mint": "D8u7g47FCPtMQbi9q1jds77vbvwcdvM7pub24NjbNu2v",
+    "createSig": "5Szr8CyvSMqwdzk66c7gUhccSF9UH9uz2A2jxnktzSHHvf7dqjsWAdtLfc6KHdzQuRf6URmLVRYfRLyqWwEdC8c7",
+    "buySig": "2AYPRgb1fT79D5gmygzZpmGdCZkX8ir6Qn6KFd1BcE3N3KyByttSEMEGiuvZymH7n1qzEPcHFmv3FZQpNHPuXrNj"
   },
   {
     "wallet": 5,
     "name": "SeedGuard",
     "symbol": "SEEDG",
+    "image": "seedguard.png",
     "desc": "Seed Vault security agent. Monitors wallet activity, flags suspicious transactions, and enforces spending policies on-device.",
-    "mint": "7gA9Y4LLen4tkS2pJ87iJbSiiGdhBWdJ7oiaqvDXzNrj",
-    "createSig": "4Gv4hpKcsD5fWcN5q5zYR8Tda9kDF8JXr2rWnRhB7id2DAvoCzzs8puPewXQiEsemYWZLY1gPoUTMpwWZuRfoqWa",
-    "buySig": "2RcvtNGnwFauP1eTyjqabrx9rmtgF7m9peSWmebjk5dGtddDc7oL12qBeoVGCvR53KQAddMWomQTcaMtfPigCWat"
+    "mint": "8k51Q6gvA8nUoTpfpBfPkcvH613QBroSbqrjd3ixqHDR",
+    "createSig": "W1BiW7HDSkwBgJAuDMNDoEbTsyD118ocmQR6Rz37fAxPEq6egxaTXRccc1pDEofjx79SwGTfhPTkA1GN1mXBtVH",
+    "buySig": "3nwYMMRYRCEaotkfyjrqU4nuWNpsCQAErTXECWEFa5q9gUXJCTJwjeCsx3wUVFL5EUdWZFd7k71hR46pgC51tre8"
   },
   {
     "wallet": 6,
     "name": "SkillNet",
     "symbol": "SKNET",
+    "image": "skillnet.png",
     "desc": "Modular AI skill marketplace for mobile agents. 42+ composable skills from DeFi to social to analytics.",
-    "mint": "Cmtwzo8StFjdGKBJdRAMZmXpRgT1bcw3ddBmrY1m4qPf",
-    "createSig": "3tRDvzMNTaLXqRWNRxGFtXjiPA7Z9GA2yk7muwV5qWjK4VcbdYUeBcCemTNEThZH3Zkqzji4RQjNXYcNthAH9WRh",
-    "buySig": "3hiYiCrVLZ74shtH2tH7PtJQcnAXSTuyER39AHcwtZ1dKh1c8VfibNAN9dD7AAkxSSr8tbiNr8c4U4RAGgmTmTmi"
+    "mint": "FYVK2YQrXT47sUqu2ynebPz1tNXyugw5DvqyHXB8haau",
+    "createSig": "a9i7b8qttiEwQueSqupQA9t5L8WjfWitZ1AyRZe61wSTPo6YbhQrivexf4skEEB8NQA5Hsn7oCwftovhyre5Kko",
+    "buySig": "4pQS1MMgWTPPmwNYLXQAi3V7DLb9euDvEs11wuy6vcpWDyV42J4Dx7CeeB1F5LR9bRB2TJ9GBmvEBU1bG3VxqfQJ"
   },
   {
     "wallet": 7,
     "name": "MobileDAO",
     "symbol": "MDAO",
+    "image": "mobiledao.png",
     "desc": "Governance agent for mobile-native DAOs. Vote, propose, and delegate from your Seeker phone with biometric auth.",
-    "mint": "6SRkBeUycHSevk1t4dnjotQKjNubFWMAd5PUMuTY2P52",
-    "createSig": "3Nnh2NKWF86ay2YpdfmHD3m6UU2o5WU5FpgQAt1eHH5GMJUbLKhJVgHcVEAgx5P5sYhW1nbYFWL8cxB4AQpjfFgH",
-    "buySig": "UJBQ9jd33xFRpTq5rPC6FHmnethP8MJA6gYWSjzdB6dxwknTEcuDn266ZCRY3zP4wBjsxNKqgbRwytmUfr3aHuL"
+    "mint": "GFgbDMJmMmrKSNkmbgHAVEqUNGCMMaeheGwyDF1tVwhU",
+    "createSig": "42z6ZzxEFH3XNTAGthd2jSUV597qevXXAxHLAZdGSWqn7dyDKEEwFfntdgUA6CZECHaqyDHNG5Xc19s58kPg5rck",
+    "buySig": "3WmpwwXiapzRRHWzXDLsij3AQ6d4pQfAchy1m3xkge8NrMqqKKKY2ER9449ckdEwqsRYHHxoG2dcKvH61BuMoJUJ"
   },
   {
     "wallet": 8,
     "name": "TeleRelay",
     "symbol": "TRELAY",
+    "image": "telerelay.png",
     "desc": "Telegram relay agent bridging mobile AI to messaging. Natural language commands for swaps, transfers, and monitoring.",
-    "mint": "515ixhvvQKHQ5kgni4BaqcAfff75hJzTDxXA78tPxsaU",
-    "createSig": "FQ69aAD5c58V3wdDsHGMVwg2RS3km8mLshX4yvB8jfWV62rVwGyjAYuWKTq1bB527sUvZZ6ihY3x6edb58KYeBs",
-    "buySig": "BWBxCpEUBqAUWkns7rJqQv1tZm9wC5tWcDrLTwoWZPTXWzSfeCT6vG5fvn99xUfpfbPV1UgpoYsNVWjV81wwRAL"
+    "mint": "AemCtvSpewGhcyFgoEY6RVCzVPibuLNnJtGrVW9Sq3XW",
+    "createSig": "4yjy7DRrPyMDgCPkpunRNZsq5tdFUHewG94qhCugBnZm8pPd9MMMsfxoEMDdaVkMQpMZW97uUZP4R8SMfVaL8StN",
+    "buySig": "4qdpq8iz9Y7fKiy8ycmGy6Yo1FH543kVa11qm2fGKGfQkpXS4Fa8jJvb8RfVpaNPX9RK9CwHdzCEShGd1z9Ntfd1"
   },
   {
     "wallet": 9,
     "name": "ColdSign",
     "symbol": "CSIGN",
+    "image": "coldsign.png",
     "desc": "Cold signing protocol for mobile transactions. Hardware isolation meets instant execution on Solana Seeker.",
-    "mint": "B9b1c6GrD6WqqFVxuxpcdXAd46hPqLtRBhS15uQh35Qu",
-    "createSig": "5nWLD2yNgvw8M1K9yemtELDKrTDYqYmiY8EYjo1iKRaZ7mTfNCqTUf6kmVg9QiEEUvf2ymwBdg8W7r2JVrANTdMt",
-    "buySig": "4X53PqryBBTnBrq5e76hAAJUgwDMeJDwyck5Pphc1SxDRPMza1nhs6dQHPz797QnDp22T11iEZgJP8APH4VDWag4"
+    "mint": "kynRpxt3ASUkaXSBoqHd9v6dbtm4gMbEqmsDD6Dfunx",
+    "createSig": "3cnAc7pQxSayiDtBpXG9PZcyqgmonrGBK43H8pNYrVBiB9qTdDFACfuMXqJ2gmoZmjFPEaX24DNpdvyvUvhvte8s",
+    "buySig": "BqVubuwXeiimuMZHaEZ4uiq7P7q8WxUkmbzVb8goySDJFyUAYaTRonYboChxiK7rdR4pW4dhiZLGSPfL6hecud2"
   },
   {
     "wallet": 10,
     "name": "SwarmNode",
     "symbol": "SWARM",
+    "image": "swarmnode.png",
     "desc": "Distributed AI swarm node running on Seeker hardware. Coordinated multi-agent intelligence across mobile devices.",
-    "mint": "6fasJBW6Jimf3hABqNBVKFJeiySXtwocD21topX5Hvwq",
-    "createSig": "5igkhc1PMiRyUzNrLU1YNdw3yM68fwW44GqGVtHJZu7RDw2xj7r5VZn19j4Ab1MpfZadasyieYFcJ6eYLWwZqftd",
-    "buySig": "2EZ3yok3noz81ZzWN9R1inkn11Eq9Na4WUEbVfKuWF4aG5azAVrUCfpsknQQ5QiDHoa7vPWUzzW1gpxPCi4WbeYF"
+    "mint": "F3kXwe6eF8hSiuqWtNzAiv668QWAHVem7FvZK3jWahdN",
+    "createSig": "8e9mWRSBduaCv2adRuHJsgTJwfc7xrqfsc4VV1xQ8MtYmy7DkwEqN314SjEBHjE2jMrrVTWwRZcLDPvcHKhuMg2",
+    "buySig": "1eS8zjebv14UBBfiBBZuZ6qinnF1S6VtxDdcQ8musKjyRKVEUibutt7PDKPpD9Mhyt1upwh6C8TGyqHPrejKm5a"
   }
 ]
