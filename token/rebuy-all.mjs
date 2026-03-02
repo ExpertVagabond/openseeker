@@ -27,7 +27,7 @@ async function buyToken(walletNum, mint, symbol) {
   }
 
   try {
-    const resp = await fetch("https://pumpportal.fun/api/trade-local", {
+    const resp = await fetch("https://pumpdev.io/api/trade-local", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

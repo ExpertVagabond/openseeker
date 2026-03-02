@@ -89,7 +89,7 @@ console.log("Connecting...\n");
 let tokenCount = 0;
 let highScoreCount = 0;
 
-const ws = new WebSocket("wss://pumpportal.fun/api/data");
+const ws = new WebSocket("wss://pumpdev.io/ws");
 
 ws.on("open", () => {
   console.log("Connected. Watching for new launches...\n");
@@ -150,7 +150,7 @@ ws.on("message", (data) => {
 ws.on("close", () => {
   console.log(`\nDisconnected. Scanned ${tokenCount} tokens, ${highScoreCount} high-score. Reconnecting...`);
   setTimeout(() => {
-    const ws2 = new WebSocket("wss://pumpportal.fun/api/data");
+    const ws2 = new WebSocket("wss://pumpdev.io/ws");
     ws2.on("open", () => ws2.send(JSON.stringify({ method: "subscribeNewToken" })));
   }, 3000);
 });

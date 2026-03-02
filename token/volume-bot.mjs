@@ -47,7 +47,7 @@ function randomWallet(fleet) {
 }
 
 async function sellFromWallet(w, mint) {
-  const resp = await fetch("https://pumpportal.fun/api/trade-local", {
+  const resp = await fetch("https://pumpdev.io/api/trade-local", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -68,7 +68,7 @@ async function sellFromWallet(w, mint) {
 }
 
 async function buyFromWallet(w, mint, amount) {
-  const resp = await fetch("https://pumpportal.fun/api/trade-local", {
+  const resp = await fetch("https://pumpdev.io/api/trade-local", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -90,50 +90,65 @@ async function buyFromWallet(w, mint, amount) {
 
 async function runCycle(fleet) {
   cycleCount++;
-  const w = randomWallet(fleet);
   const token = randomToken();
+  // Token's own wallet (guaranteed to hold tokens from initial buy)
+  const tokenWallet = fleet.find(w => w.id === token.wallet);
+  const buyWallet = randomWallet(fleet);
   const now = new Date().toLocaleTimeString();
 
-  // Randomly choose: sell-then-buy, buy-then-sell, or just buy
+  // Randomly choose pattern
   const action = Math.random();
 
   try {
-    if (action < 0.4) {
-      // Sell then rebuy (creates 2 txs of volume)
-      console.log(`[${now}] Cycle #${cycleCount} wallet-${w.id} on $${token.symbol}: SELL → BUY`);
-      const sellSig = await sellFromWallet(w, token.mint);
+    if (action < 0.35) {
+      // Sell from token's wallet, then rebuy from random wallet
+      console.log(`[${now}] Cycle #${cycleCount} $${token.symbol}: wallet-${tokenWallet.id} SELL → wallet-${buyWallet.id} BUY`);
+      const sellSig = await sellFromWallet(tokenWallet, token.mint);
       if (sellSig) {
         console.log(`  Sold: ${sellSig.slice(0, 20)}...`);
+        totalVolume += CYCLE_AMOUNT_SOL;
         await new Promise(r => setTimeout(r, 3000));
+      } else {
+        console.log(`  Sell failed (no tokens?)`);
       }
-      const buySig = await buyFromWallet(w, token.mint, CYCLE_AMOUNT_SOL);
+      const buySig = await buyFromWallet(buyWallet, token.mint, CYCLE_AMOUNT_SOL);
       if (buySig) {
         console.log(`  Bought ${CYCLE_AMOUNT_SOL} SOL: ${buySig.slice(0, 20)}...`);
-        totalVolume += CYCLE_AMOUNT_SOL * 2;
+        totalVolume += CYCLE_AMOUNT_SOL;
       }
-    } else if (action < 0.7) {
-      // Just buy (accumulate)
-      console.log(`[${now}] Cycle #${cycleCount} wallet-${w.id} on $${token.symbol}: BUY`);
-      const bal = await conn.getBalance(w.keypair.publicKey);
+    } else if (action < 0.55) {
+      // Just buy (accumulate across wallets)
+      console.log(`[${now}] Cycle #${cycleCount} wallet-${buyWallet.id} on $${token.symbol}: BUY`);
+      const bal = await conn.getBalance(buyWallet.keypair.publicKey);
       if (bal / LAMPORTS_PER_SOL < CYCLE_AMOUNT_SOL + 0.005) {
         console.log(`  Skip — low balance (${(bal / LAMPORTS_PER_SOL).toFixed(4)} SOL)`);
         return;
       }
-      const sig = await buyFromWallet(w, token.mint, CYCLE_AMOUNT_SOL);
+      const sig = await buyFromWallet(buyWallet, token.mint, CYCLE_AMOUNT_SOL);
       if (sig) {
         console.log(`  Bought: ${sig.slice(0, 20)}...`);
         totalVolume += CYCLE_AMOUNT_SOL;
       }
+    } else if (action < 0.75) {
+      // Just sell from token's wallet
+      console.log(`[${now}] Cycle #${cycleCount} wallet-${tokenWallet.id} on $${token.symbol}: SELL`);
+      const sig = await sellFromWallet(tokenWallet, token.mint);
+      if (sig) {
+        console.log(`  Sold: ${sig.slice(0, 20)}...`);
+        totalVolume += CYCLE_AMOUNT_SOL;
+      } else {
+        console.log(`  Sell failed (no tokens?)`);
+      }
     } else {
-      // Buy from one wallet, sell from another (cross-wallet)
-      const w2 = randomWallet(fleet.filter(x => x.id !== w.id));
-      console.log(`[${now}] Cycle #${cycleCount} $${token.symbol}: wallet-${w.id} BUY + wallet-${w2.id} SELL`);
+      // Cross-wallet: buy from random, sell from token's wallet simultaneously
+      const otherBuyer = randomWallet(fleet.filter(x => x.id !== tokenWallet.id));
+      console.log(`[${now}] Cycle #${cycleCount} $${token.symbol}: wallet-${otherBuyer.id} BUY + wallet-${tokenWallet.id} SELL`);
       const [buySig, sellSig] = await Promise.all([
-        buyFromWallet(w, token.mint, CYCLE_AMOUNT_SOL).catch(() => null),
-        sellFromWallet(w2, token.mint).catch(() => null),
+        buyFromWallet(otherBuyer, token.mint, CYCLE_AMOUNT_SOL).catch(() => null),
+        sellFromWallet(tokenWallet, token.mint).catch(() => null),
       ]);
-      if (buySig) console.log(`  wallet-${w.id} bought: ${buySig.slice(0, 20)}...`);
-      if (sellSig) console.log(`  wallet-${w2.id} sold: ${sellSig.slice(0, 20)}...`);
+      if (buySig) console.log(`  wallet-${otherBuyer.id} bought: ${buySig.slice(0, 20)}...`);
+      if (sellSig) console.log(`  wallet-${tokenWallet.id} sold: ${sellSig.slice(0, 20)}...`);
       totalVolume += CYCLE_AMOUNT_SOL * 2;
     }
   } catch (e) {

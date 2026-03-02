@@ -30,23 +30,20 @@ function loadWallet(walletNum) {
 
 async function getSolPrice() {
   try {
-    const resp = await fetch("https://api.jup.ag/price/v2?ids=So11111111111111111111111111111111111111112");
+    const resp = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd");
     const data = await resp.json();
-    return parseFloat(data.data?.["So11111111111111111111111111111111111111112"]?.price || "140");
+    return parseFloat(data?.solana?.usd || "80");
   } catch {
-    return 140;
+    return 80;
   }
 }
 
 async function getTokenMcap(mint, solPrice) {
-  // Use pump.fun coin data API to get market cap
+  // Use pump.fun coin data API — calculate from virtual SOL reserves (most reliable)
   try {
     const resp = await fetch(`https://frontend-api-v3.pump.fun/coins/${mint}`);
     if (!resp.ok) return 0;
     const data = await resp.json();
-    // market_cap is in USD from their API, or calculate from virtual reserves
-    if (data.market_cap) return data.market_cap;
-    // Fallback: bonding curve calculation
     const vSol = (data.virtual_sol_reserves || 0) / LAMPORTS_PER_SOL;
     return vSol * solPrice * 2;
   } catch {
@@ -57,7 +54,7 @@ async function getTokenMcap(mint, solPrice) {
 async function sellAll(walletNum, mint) {
   const wallet = loadWallet(walletNum);
   try {
-    const resp = await fetch("https://pumpportal.fun/api/trade-local", {
+    const resp = await fetch("https://pumpdev.io/api/trade-local", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -119,7 +116,7 @@ async function checkAndSell() {
 
 // Also listen to WebSocket for real-time trade events on our tokens
 function startWsMonitor() {
-  const ws = new WebSocket("wss://pumpportal.fun/api/data");
+  const ws = new WebSocket("wss://pumpdev.io/ws");
 
   ws.on("open", () => {
     console.log("WebSocket connected — subscribing to token trades...");

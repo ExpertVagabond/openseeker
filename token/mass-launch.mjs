@@ -66,7 +66,7 @@ async function launchToken(wallet, token, metadataUri) {
   const mintKeypair = Keypair.generate();
 
   // Create token
-  const createResp = await fetch("https://pumpportal.fun/api/trade-local", {
+  const createResp = await fetch("https://pumpdev.io/api/trade-local", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -98,7 +98,7 @@ async function launchToken(wallet, token, metadataUri) {
 }
 
 async function buyToken(wallet, mint, amount) {
-  const resp = await fetch("https://pumpportal.fun/api/trade-local", {
+  const resp = await fetch("https://pumpdev.io/api/trade-local", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

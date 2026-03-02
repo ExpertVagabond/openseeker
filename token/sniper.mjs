@@ -69,7 +69,7 @@ async function snipeBuy(mint, wallets) {
         continue;
       }
 
-      const resp = await fetch("https://pumpportal.fun/api/trade-local", {
+      const resp = await fetch("https://pumpdev.io/api/trade-local", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -108,7 +108,7 @@ async function snipeSell(mint, wallets) {
   console.log(`\n  Selling ${mint.slice(0, 8)}... from fleet`);
   for (const w of wallets) {
     try {
-      const resp = await fetch("https://pumpportal.fun/api/trade-local", {
+      const resp = await fetch("https://pumpdev.io/api/trade-local", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -137,7 +137,7 @@ async function snipeSell(mint, wallets) {
 function startWebSocket(fleet) {
   console.log("\nConnecting to pump.fun websocket...");
 
-  const ws = new WebSocket("wss://pumpportal.fun/api/data");
+  const ws = new WebSocket("wss://pumpdev.io/ws");
 
   ws.on("open", () => {
     console.log("Connected. Subscribing to new token events...\n");

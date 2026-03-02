@@ -116,7 +116,7 @@ async function buyAll(mint, solPerWallet, slippage = 25) {
     }
 
     try {
-      const resp = await fetch("https://pumpportal.fun/api/trade-local", {
+      const resp = await fetch("https://pumpdev.io/api/trade-local", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -157,7 +157,7 @@ async function sellAll(mint, slippage = 25) {
 
   for (const w of fleet) {
     try {
-      const resp = await fetch("https://pumpportal.fun/api/trade-local", {
+      const resp = await fetch("https://pumpdev.io/api/trade-local", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
