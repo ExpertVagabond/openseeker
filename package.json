@@ -1,0 +1,35 @@
+{
+  "name": "openseeker",
+  "version": "1.0.0",
+  "description": "The AI Agent Layer for Solana Seeker — autonomous AI agents running natively on the Solana Seeker phone",
+  "author": "Purple Squirrel Media <matthew@purplesquirrelmedia.io> (https://purplesquirrelmedia.io)",
+  "license": "MIT",
+  "homepage": "https://openseeker.pages.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ExpertVagabond/openseeker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ExpertVagabond/openseeker/issues"
+  },
+  "keywords": [
+    "solana",
+    "seeker",
+    "ai-agent",
+    "autonomous-agent",
+    "defi",
+    "jupiter",
+    "telegram",
+    "cold-signing",
+    "seed-vault",
+    "mobile-agent",
+    "pump-fun",
+    "web3"
+  ],
+  "type": "module",
+  "scripts": {
+    "generate": "node generate-agent-pages.mjs",
+    "serve": "npx serve .",
+    "deploy": "npx wrangler pages deploy . --project-name=openseeker"
+  }
+}
