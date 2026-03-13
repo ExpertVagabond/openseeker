@@ -31,5 +31,9 @@
     "generate": "node generate-agent-pages.mjs",
     "serve": "npx serve .",
     "deploy": "npx wrangler pages deploy . --project-name=openseeker"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4",
+    "ws": "^8.19.0"
   }
 }
