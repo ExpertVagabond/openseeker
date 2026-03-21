@@ -1,9 +1,62 @@
+// =============================================================================
+// Security Hardening — Input Validation, Error Sanitization, Security Constants
+// No hardcoded secrets — token data loaded from external JSON
+// =============================================================================
+
+const MAX_INPUT_LENGTH = 4096;
+const MAX_PATH_LENGTH = 512;
+const MAX_SYMBOL_LENGTH = 16;
+const ALLOWED_SYMBOL_RE = /^[A-Z0-9]+$/;
+const SENSITIVE_PATTERNS = /(?:api[_-]?key|secret|password|token[_-]?secret|auth|credential|private[_-]?key)/i;
+
+function sanitizeError(err) {
+  let msg = String(err && err.message ? err.message : err);
+  msg = msg.replace(/\/[^\s:]+/g, '[path]');
+  msg = msg.replace(/at\s+.+\(.*:\d+:\d+\)/g, '[stackframe]');
+  msg = msg.replace(SENSITIVE_PATTERNS, '[redacted]');
+  return msg.slice(0, 500);
+}
+
+function validatePath(p) {
+  if (typeof p !== 'string' || p.length > MAX_PATH_LENGTH) {
+    throw new Error('Path exceeds maximum length');
+  }
+  if (p.includes('..') || p.includes('\x00')) {
+    throw new Error('Invalid path characters');
+  }
+  return p;
+}
+
+function validateSymbol(sym) {
+  if (typeof sym !== 'string' || !ALLOWED_SYMBOL_RE.test(sym) || sym.length > MAX_SYMBOL_LENGTH) {
+    throw new Error(`Invalid token symbol: ${sym}`);
+  }
+  return sym;
+}
+
+function validateStringInput(value, maxLen = MAX_INPUT_LENGTH, field = 'input') {
+  if (typeof value !== 'string') throw new Error(`${field} must be a string`);
+  return value.trim().slice(0, maxLen);
+}
+
+function validateTokenEntry(token) {
+  if (!token || typeof token !== 'object') throw new Error('Invalid token entry');
+  validateSymbol(token.symbol);
+  validateStringInput(token.name, 256, 'name');
+  if (token.mint) validateStringInput(token.mint, 64, 'mint');
+  return token;
+}
+
+// =============================================================================
+// Application
+// =============================================================================
+
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const results = JSON.parse(fs.readFileSync(path.join(__dirname, "token/mass-launch-results.json"), "utf8"));
+const results = JSON.parse(fs.readFileSync(validatePath(path.join(__dirname, "token/mass-launch-results.json")), "utf8"));
 const tokens = results.filter(r => r.mint);
 
 const descriptions = {
@@ -168,32 +221,42 @@ ${tokens.map(t => {
 // 1. Generate subpages for openseeker.pages.dev
 console.log("=== Generating Agent Pages ===\n");
 for (const t of tokens) {
-  const slug = t.symbol.toLowerCase();
-  const html = generatePage(t, false);
-  const outPath = path.join(__dirname, `${slug}.html`);
-  fs.writeFileSync(outPath, html);
-  console.log(`  ${slug}.html (subpage)`);
+  try {
+    validateTokenEntry(t);
+    const slug = t.symbol.toLowerCase();
+    const html = generatePage(t, false);
+    const outPath = validatePath(path.join(__dirname, `${slug}.html`));
+    fs.writeFileSync(outPath, html);
+    console.log(`  ${slug}.html (subpage)`);
+  } catch (err) {
+    console.error(`  Error generating page: ${sanitizeError(err)}`);
+  }
 }
 
 // 2. Generate standalone sites
-const standaloneDir = path.join(__dirname, "agent-sites");
+const standaloneDir = validatePath(path.join(__dirname, "agent-sites"));
 fs.mkdirSync(standaloneDir, { recursive: true });
 
 for (const t of tokens) {
-  const slug = t.symbol.toLowerCase();
-  const siteDir = path.join(standaloneDir, slug);
-  fs.mkdirSync(siteDir, { recursive: true });
+  try {
+    validateTokenEntry(t);
+    const slug = t.symbol.toLowerCase();
+    const siteDir = validatePath(path.join(standaloneDir, slug));
+    fs.mkdirSync(siteDir, { recursive: true });
 
-  const html = generatePage(t, true);
-  fs.writeFileSync(path.join(siteDir, "index.html"), html);
+    const html = generatePage(t, true);
+    fs.writeFileSync(path.join(siteDir, "index.html"), html);
 
-  // Copy image
-  const imgSrc = path.join(__dirname, "assets", t.image);
-  if (fs.existsSync(imgSrc)) {
-    fs.copyFileSync(imgSrc, path.join(siteDir, t.image));
+    // Copy image
+    const imgSrc = validatePath(path.join(__dirname, "assets", t.image));
+    if (fs.existsSync(imgSrc)) {
+      fs.copyFileSync(imgSrc, path.join(siteDir, t.image));
+    }
+
+    console.log(`  agent-sites/${slug}/ (standalone)`);
+  } catch (err) {
+    console.error(`  Error generating standalone: ${sanitizeError(err)}`);
   }
-
-  console.log(`  agent-sites/${slug}/ (standalone)`);
 }
 
 console.log(`\nDone: ${tokens.length} subpages + ${tokens.length} standalone sites`);
